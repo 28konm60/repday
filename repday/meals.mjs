@@ -258,7 +258,7 @@ const mealSlots = ['아침', '점심', '저녁'].map(time => meals.filter(meal =
 const combinationCount = mealSlots.reduce((count, slot) => count * slot.length, 1);
 
 function selectMenus(variation) {
-  // Advance each meal together while cycling through all possible combinations.
+  // Map a combination number to one menu from each meal slot.
   const breakfast = variation % mealSlots[0].length;
   return mealSlots.map((slot, index) => {
     const digit = variation % slot.length;
@@ -323,12 +323,31 @@ function migrateMealVariation(saved) {
   return breakfast + breakfasts * (lunchDigit + lunches * dinnerDigit);
 }
 
+function shuffledVariations(previous) {
+  const order = Array.from({length: combinationCount}, (_, index) => index);
+  for (let index = order.length - 1; index > 0; index--) {
+    const other = Math.floor(Math.random() * (index + 1));
+    [order[index], order[other]] = [order[other], order[index]];
+  }
+  const last = order.length - 1;
+  if (order[last] === previous && last > 0) {
+    const other = Math.floor(Math.random() * last);
+    [order[last], order[other]] = [order[other], order[last]];
+  }
+  return order;
+}
+
 function readSavedMeals() {
   try {
     const saved = JSON.parse(localStorage.getItem(mealStorageKey));
     if (saved && typeof saved.isYouth === 'boolean' &&
         [1, 1.1, 1.25].includes(saved.size) && mealGoals.includes(saved.goal)) {
-      return {...saved, variation: migrateMealVariation(saved)};
+      const variation = migrateMealVariation(saved);
+      const remaining = saved.remainingVariations;
+      const validOrder = saved.catalogVersion === catalogVersion && Array.isArray(remaining) &&
+        remaining.length < combinationCount && new Set(remaining).size === remaining.length &&
+        remaining.every(index => Number.isInteger(index) && index >= 0 && index < combinationCount && index !== variation);
+      return {...saved, variation, remainingVariations: validOrder ? remaining : []};
     }
   } catch {
     // A blocked or unreadable store should not prevent recommendations.
@@ -434,8 +453,11 @@ export function initMeals() {
   }
 
   function showAndSaveNext(preferences) {
-    const variation = currentPlan ? (currentPlan.variation + 1) % combinationCount : 0;
-    showMeals({...preferences, variation, catalogVersion});
+    const remainingVariations = currentPlan?.remainingVariations.length
+      ? currentPlan.remainingVariations
+      : shuffledVariations(currentPlan?.variation);
+    const variation = remainingVariations.pop();
+    showMeals({...preferences, variation, catalogVersion, remainingVariations});
     try {
       localStorage.setItem(mealStorageKey, JSON.stringify(currentPlan));
     } catch {
