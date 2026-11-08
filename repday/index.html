@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111713">
+<meta name="theme-color" content="#e3e7d5">
 <title>리프데이 · 3일 맨몸 운동</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-192.png">
@@ -13,7 +13,8 @@
 <body id="top">
 <a class="skip-link" href="#workout">운동 목록으로 이동</a>
 <main>
-<header><a class="brand" href="#top"><span class="brand-mark">↗</span> REPDAY<span class="brand-dot">.</span></a><span class="tag"><span class="status-dot"></span> 나만의 트레이닝</span></header>
+<header><a class="brand" href="#top"><span class="brand-mark">↗</span> REPDAY<span class="brand-dot">.</span></a><a class="header-meals" href="#meals">식단 <span aria-hidden="true">↗</span></a></header>
+<div id="training">
 <section class="hero" aria-labelledby="title">
 <p class="eyebrow">MOVE AT YOUR OWN PACE</p>
 <h1 id="title">작은 움직임,<br><span>달라지는 나.</span></h1>
@@ -60,9 +61,51 @@
 <p id="body-summary"></p>
 <ul id="body-history"></ul>
 </section>
-</aside></div><section class="panel trophy-panel" id="awards"><div class="section-heading"><div><p class="eyebrow">EARN YOUR STRENGTH</p><h2>나의 덤벨 컬렉션</h2></div><span class="section-tag" id="trophy-count"></span></div><p>운동 완료 체크를 기준으로 획득해요. 체크를 취소하면 다시 계산돼요.</p><ul id="trophies"></ul></section>
-<footer>REPDAY · 3일 맨몸 운동 · 디자인 v8</footer>
+</aside></div><section class="panel badge-panel" id="awards"><div class="section-heading"><div><p class="eyebrow">EARN YOUR STRENGTH</p><h2>나의 운동 배지</h2></div><span class="section-tag" id="badge-count"></span></div><p>운동 완료 체크를 기준으로 획득해요. 체크를 취소하면 다시 계산돼요.</p><ul id="badges"></ul></section>
+</div>
+<section class="panel meal-page" id="meals" aria-labelledby="meal-title" hidden>
+  <div class="meal-intro">
+    <p class="eyebrow">REPDAY KITCHEN</p>
+    <h2 id="meal-title" tabindex="-1">내 몸에 맞춘 식단</h2>
+    <p>신체 조건과 활동량을 입력하면 아침, 점심, 저녁 메뉴의 재료 양을 맞춰 드려요.</p>
+  </div>
+  <form id="meal-form">
+    <div class="meal-fields">
+      <label>나이 (만)<input name="age" type="number" min="20" max="78" step="1" inputmode="numeric" placeholder="예: 30" required></label>
+      <label>성별 (필요량 계산용)<select name="sex" required><option value="">선택</option><option value="female">여성</option><option value="male">남성</option></select></label>
+      <label>키 (cm)<input name="height" type="number" min="100" max="250" step="0.1" inputmode="decimal" placeholder="예: 170" required></label>
+      <label>체중 (kg)<input name="weight" type="number" min="30" max="300" step="0.1" inputmode="decimal" placeholder="예: 65" required></label>
+      <label>평소 활동량<select name="activity"><option value="low">주로 앉아 있어요</option><option value="moderate" selected>가벼운 운동을 해요</option><option value="high">운동을 자주 해요</option></select></label>
+      <label>식단 목표<select name="goal"><option value="balanced">균형 있게 먹기</option><option value="training">운동 후 단백질 챙기기</option><option value="hearty">활동 많은 날 든든하게 먹기</option></select></label>
+    </div>
+    <button class="meal-submit" type="submit" disabled>내 식단 추천받기 <span aria-hidden="true">↗</span></button>
+    <p class="meal-note">만 20~78세 성인을 위한 일반 메뉴 예시예요. 입력값은 저장하거나 전송하지 않아요. 알레르기가 있다면 재료와 제품 표시를 확인해 주세요.</p>
+  </form>
+  <p id="meal-status" role="status" tabindex="-1"></p>
+  <div class="meal-list" id="meal-list"></div>
+</section>
+<template id="meal-card-template">
+  <article class="meal-card">
+    <figure>
+      <img width="900" height="600" loading="lazy" decoding="async">
+      <figcaption>완성 예시 · <a class="meal-credit" target="_blank" rel="noopener noreferrer"></a></figcaption>
+    </figure>
+    <div class="meal-card-content">
+      <p class="meal-meta"></p>
+      <h3></h3>
+      <p class="meal-ingredients"></p>
+      <p class="meal-allergens"></p>
+      <button class="meal-toggle" type="button" aria-expanded="false">더 맛있게 먹고 싶으면 <span aria-hidden="true"></span></button>
+      <div class="meal-recipe" hidden>
+        <h4>맛있게 만드는 법</h4>
+        <p class="meal-seasoning"></p>
+        <ol></ol>
+      </div>
+    </div>
+  </article>
+</template>
+<footer>REPDAY · 3일 맨몸 운동 · 디자인 v10</footer>
 </main>
-<nav class="bottom-nav" aria-label="빠른 이동"><a href="#workout"><span aria-hidden="true">↗</span>운동</a><a href="#records"><span aria-hidden="true">≡</span>기록</a><a href="#body-progress"><span aria-hidden="true">◉</span>몸 상태</a><a href="#awards"><span aria-hidden="true">☆</span>트로피</a></nav>
+<nav class="bottom-nav" aria-label="빠른 이동"><a href="#workout"><span aria-hidden="true">↗</span>운동</a><a href="#records"><span aria-hidden="true">≡</span>기록</a><a href="#body-progress"><span aria-hidden="true">◉</span>몸 상태</a><a href="#awards"><span aria-hidden="true">☆</span>배지</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
 </body>
 </html>

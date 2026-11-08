@@ -1,4 +1,5 @@
-import {schedule, planFor, workoutProgress, pendingCheckIn, trophies} from './routine.mjs';
+import {schedule, planFor, workoutProgress, pendingCheckIn, badges} from './routine.mjs';
+import {initMeals} from './meals.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
@@ -93,7 +94,7 @@ function render() {
       save();
       updateProgress();
       renderHistory();
-      renderTrophies();
+      renderBadges();
       const milestone = renderBody();
       if (milestone !== null && milestone !== previousMilestone && input.checked && checkIn.hidden) {
         openCheckIn(milestone, true);
@@ -288,9 +289,10 @@ document.addEventListener('visibilitychange', () => {
 setInterval(updateTimer, 250);
 setInterval(refreshSchedule, 15000);
 render();
-renderTrophies();
+renderBadges();
 const pending = renderBody();
 if (pending !== null) openCheckIn(pending, false);
+initMeals();
 
 if ('serviceWorker' in navigator && window.isSecureContext) {
   const workers = navigator.serviceWorker;
@@ -298,7 +300,7 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
   let updatePending = false;
 
   function applyUpdate() {
-    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden) return;
+    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden || document.activeElement.closest('#meals')) return;
     window.location.reload();
   }
 
@@ -323,23 +325,24 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
   }).catch(error => console.warn('오프라인 준비 실패', error));
 }
 
-function renderTrophies() {
+function renderBadges() {
   const progress = workoutProgress(state.history);
-  byId('trophy-count').textContent = trophies.filter(trophy => progress[trophy.metric] >= trophy.target).length + ' / ' + trophies.length + ' 획득';
-  byId('trophies').replaceChildren(...trophies.map(trophy => {
-    const earned = progress[trophy.metric] >= trophy.target;
+  byId('badge-count').textContent = badges.filter(badge => progress[badge.metric] >= badge.target).length + ' / ' + badges.length + ' 획득';
+  byId('badges').replaceChildren(...badges.map(badge => {
+    const earned = progress[badge.metric] >= badge.target;
     const card = document.createElement('li');
-    card.className = 'trophy ' + (earned ? 'earned' : 'locked');
-    card.style.setProperty('--trophy', trophy.color);
+    card.className = 'badge ' + (earned ? 'earned' : 'locked');
+    card.style.setProperty('--badge', badge.color);
     const icon = document.createElement('div');
-    icon.className = 'dumbbell ' + trophy.shape;
+    icon.className = 'badge-emblem';
+    icon.textContent = badge.symbol;
     icon.setAttribute('aria-hidden', 'true');
     const title = document.createElement('strong');
-    title.textContent = trophy.name;
+    title.textContent = badge.name;
     const status = document.createElement('p');
-    status.textContent = earned ? '획득 완료' : Math.min(progress[trophy.metric], trophy.target) + ' / ' + trophy.target;
+    status.textContent = earned ? '획득 완료' : Math.min(progress[badge.metric], badge.target) + ' / ' + badge.target;
     const goal = document.createElement('small');
-    goal.textContent = trophy.goal;
+    goal.textContent = badge.goal;
     card.append(icon, title, status, goal);
     return card;
   }));

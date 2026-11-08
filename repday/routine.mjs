@@ -127,13 +127,13 @@ export function pendingCheckIn(routines, records) {
   return null;
 }
 
-export const trophies = [
-  {id:'first', name:'첫 덤벨', goal:'운동 1개 완료', metric:'exercises', target:1, color:'#c79266', shape:'round'},
-  {id:'bronze', name:'브론즈 덤벨', goal:'누적 30세트', metric:'sets', target:30, color:'#cd8754', shape:'square'},
-  {id:'silver', name:'실버 덤벨', goal:'누적 100세트', metric:'sets', target:100, color:'#cedce5', shape:'round'},
-  {id:'gold', name:'골드 덤벨', goal:'누적 300세트', metric:'sets', target:300, color:'#ffd05d', shape:'square'},
-  {id:'routine', name:'에메랄드 덤벨', goal:'3일 루틴 4회', metric:'routines', target:4, color:'#70e0a1', shape:'round'},
-  {id:'standard', name:'사파이어 덤벨', goal:'중수 하루치 3회', metric:'standardDays', target:3, color:'#6aaeff', shape:'square'},
-  {id:'advanced', name:'루비 덤벨', goal:'고수 하루치 3회', metric:'advancedDays', target:3, color:'#ff7994', shape:'round'},
-  {id:'legend', name:'왕관 덤벨', goal:'누적 1000세트', metric:'sets', target:1000, color:'#c8a5ff', shape:'crown'}
+export const badges = [
+  {id:'first', name:'첫 배지', goal:'운동 1개 완료', metric:'exercises', target:1, color:'#c79266', symbol:'✦'},
+  {id:'bronze', name:'브론즈 배지', goal:'누적 30세트', metric:'sets', target:30, color:'#cd8754', symbol:'◆'},
+  {id:'silver', name:'실버 배지', goal:'누적 100세트', metric:'sets', target:100, color:'#cedce5', symbol:'✦'},
+  {id:'gold', name:'골드 배지', goal:'누적 300세트', metric:'sets', target:300, color:'#ffd05d', symbol:'◆'},
+  {id:'routine', name:'에메랄드 배지', goal:'3일 루틴 4회', metric:'routines', target:4, color:'#70e0a1', symbol:'✦'},
+  {id:'standard', name:'사파이어 배지', goal:'중수 하루치 3회', metric:'standardDays', target:3, color:'#6aaeff', symbol:'◆'},
+  {id:'advanced', name:'루비 배지', goal:'고수 하루치 3회', metric:'advancedDays', target:3, color:'#ff7994', symbol:'✦'},
+  {id:'legend', name:'왕관 배지', goal:'누적 1000세트', metric:'sets', target:1000, color:'#c8a5ff', symbol:'★'}
 ];
