@@ -75,7 +75,10 @@ const meals = [
 
 const activityFactors = {low: 1.2, moderate: 1.4, high: 1.6};
 
-export function recommendMeals({age, sex, height, weight, activity, goal}) {
+const mealStorageKey = 'repday-meal-plan-v1';
+const mealGoals = ['balanced', 'training', 'hearty'];
+
+function mealPreferences({age, sex, height, weight, activity, goal}) {
   const isYouth = age < 20;
   let size = 1;
   if (!isYouth) {
@@ -84,6 +87,14 @@ export function recommendMeals({age, sex, height, weight, activity, goal}) {
     const estimated = resting * activityFactors[activity];
     size = estimated >= 2500 ? 1.25 : estimated >= 1900 ? 1.1 : 1;
   }
+  return {isYouth, size, goal: isYouth ? 'balanced' : goal};
+}
+
+export function recommendMeals(profile) {
+  return mealsFor(mealPreferences(profile));
+}
+
+function mealsFor({isYouth, size, goal}) {
   const proteinScale = !isYouth && goal === 'training' ? size * 1.15 : size;
   const starchScale = !isYouth && goal === 'hearty' ? size * 1.15 : size;
 
@@ -99,6 +110,17 @@ export function recommendMeals({age, sex, height, weight, activity, goal}) {
       nutrients: mealNutrients([...ingredients, ...meal.seasoningWeights])
     };
   });
+}
+
+function readSavedMeals() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(mealStorageKey));
+    if (saved && typeof saved.isYouth === 'boolean' &&
+        [1, 1.1, 1.25].includes(saved.size) && mealGoals.includes(saved.goal)) return saved;
+  } catch {
+    // A blocked or unreadable store should not prevent recommendations.
+  }
+  return null;
 }
 
 export function initMeals() {
@@ -181,27 +203,40 @@ export function initMeals() {
     status.textContent = '';
   }
 
+  function showMeals(preferences, restored = false) {
+    const {isYouth, goal} = preferences;
+    list.replaceChildren(...mealsFor(preferences).map(renderMeal));
+    status.textContent = isYouth
+      ? '성장기에 참고할 아침 · 점심 · 저녁 메뉴예요. 칼이나 뜨거운 조리 도구는 어른과 함께 사용해요.'
+      : '입력하신 조건을 반영한 아침 · 점심 · 저녁 1인분 예시예요.';
+    if (!isYouth && goal === 'training') status.textContent += ' 운동 후 단백질을 챙길 수 있도록 요거트·닭·연어의 양을 늘렸어요.';
+    if (!isYouth && goal === 'hearty') status.textContent += ' 활동 많은 날에 든든하게 먹을 수 있도록 그래놀라·현미밥·감자의 양을 늘렸어요.';
+    if (restored) status.textContent = '마지막으로 추천받은 식단이에요. ' + status.textContent;
+  }
+
   form.addEventListener('submit', event => {
     event.preventDefault();
     const fields = new FormData(form);
     const age = ageInput.valueAsNumber;
-    const plan = recommendMeals({
+    const preferences = mealPreferences({
       age, height: Number(fields.get('height')),
       weight: Number(fields.get('weight')), sex: fields.get('sex'),
       activity: fields.get('activity'), goal: fields.get('goal')
     });
-    list.replaceChildren(...plan.map(renderMeal));
-    status.textContent = age < 20
-      ? '성장기에 참고할 아침 · 점심 · 저녁 메뉴예요. 칼이나 뜨거운 조리 도구는 어른과 함께 사용해요.'
-      : '입력하신 조건을 반영한 아침 · 점심 · 저녁 1인분 예시예요.';
-    if (age >= 20 && fields.get('goal') === 'training') status.textContent += ' 운동 후 단백질을 챙길 수 있도록 요거트·닭·연어의 양을 늘렸어요.';
-    if (age >= 20 && fields.get('goal') === 'hearty') status.textContent += ' 활동 많은 날에 든든하게 먹을 수 있도록 그래놀라·현미밥·감자의 양을 늘렸어요.';
+    showMeals(preferences);
+    try {
+      localStorage.setItem(mealStorageKey, JSON.stringify(preferences));
+    } catch {
+      status.textContent += ' 이 브라우저에서는 식단을 저장할 수 없어요.';
+    }
     status.focus();
   });
 
   ageInput.addEventListener('input', updateAgeMode);
   window.addEventListener('pageshow', updateAgeMode);
   updateAgeMode();
+  const saved = readSavedMeals();
+  if (saved) showMeals(saved, true);
   form.querySelector('button[type=submit]').disabled = false;
   window.addEventListener('hashchange', showPage);
   showPage();
