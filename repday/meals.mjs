@@ -18,6 +18,22 @@ const foodNutrients = {
   bellPepper: [31, 6.03, 0.99, 0.3, 2.1, 4], // NDB 11821
   onion: [40, 9.34, 1.1, 0.1, 1.7, 4], // NDB 11282
   parsley: [36, 6.33, 2.97, 0.79, 3.3, 56], // NDB 11297
+  egg: [143, 0.72, 12.56, 9.51, 0, 142], // NDB 01123
+  avocado: [160, 8.53, 2, 14.66, 6.7, 7], // NDB 09037
+  wholeWheatBread: [252, 42.71, 12.45, 3.5, 6, 455], // NDB 18075
+  oats: [379, 67.7, 13.15, 6.52, 10.1, 6], // NDB 08120
+  blueberries: [57, 14.49, 0.74, 0.33, 2.4, 1], // NDB 09050
+  milk: [50, 4.8, 3.3, 1.98, 0, 47], // NDB 01079
+  chickpea: [164, 27.42, 8.86, 2.59, 7.6, 7], // NDB 16057
+  cucumber: [15, 3.63, 0.65, 0.11, 0.5, 2], // NDB 11205
+  spinach: [23, 3.63, 2.86, 0.39, 2.2, 79], // NDB 11457
+  tofu: [144, 2.78, 17.27, 8.72, 2.3, 14], // NDB 16426
+  carrot: [41, 9.58, 0.93, 0.24, 2.8, 69], // NDB 11124
+  broccoli: [34, 6.64, 2.82, 0.37, 2.6, 33], // NDB 11090
+  garlic: [149, 33.06, 6.36, 0.5, 2.1, 17], // NDB 11215
+  pasta: [149, 30.07, 5.99, 1.71, 3.9, 4], // NDB 20125
+  shrimp: [71, 0.91, 13.61, 1.01, 0, 566], // NDB 15149
+  basil: [23, 2.65, 3.15, 0.64, 1.6, 4], // NDB 02044
 };
 
 const nutrientLabels = [['열량', 'kcal'], ['탄수화물', 'g'], ['단백질', 'g'], ['지방', 'g'], ['식이섬유', 'g'], ['나트륨', 'mg']];
@@ -70,8 +86,182 @@ const meals = [
       '감자를 뒤집고 파프리카와 양파, 연어를 옆에 놓아요. 남은 올리브유와 후추를 뿌려 연어의 가장 두꺼운 부분이 63°C에 이를 때까지 구워요.',
       '완성한 연어에 레몬즙을 짜고 파슬리를 뿌려요. 노릇하게 구운 감자와 채소를 곁들여요.'
     ]
+  },
+  {
+    time: '아침',
+    title: '아보카도 달걀 토스트',
+    minutes: 15,
+    photo: 'avocado-toast.jpg',
+    photographer: 'Alexis Presa',
+    source: 'https://unsplash.com/photos/HZgyUhnwzBo',
+    allergens: '달걀 · 밀',
+    ingredients: [
+      ['통밀빵', 85, 'wholeWheatBread', 'starch'],
+      ['달걀(껍데기 제외)', 100, 'egg', 'protein'],
+      ['아보카도', 65, 'avocado'],
+      ['토마토', 70, 'tomato']
+    ],
+    reason: '통밀빵과 아보카도에서 식이섬유를, 달걀에서 단백질을 챙길 수 있어요. 따뜻한 토스트에 부드러운 달걀과 산뜻한 토마토를 곁들인 아침이에요.',
+    seasoningWeights: [
+      ['올리브유', 4.5, 'oil'],
+      ['레몬즙', 5, 'lemon'],
+      ['후추', 0.3, 'blackPepper']
+    ],
+    seasoning: '올리브유와 레몬즙 각 1작은술, 후추 약간',
+    steps: [
+      '통밀빵을 노릇하게 굽고 토마토를 잘게 썰어요. 아보카도를 으깨 레몬즙을 섞어요.',
+      '팬에 올리브유를 두르고 푼 달걀을 넣어요. 부드럽게 저으면서 달걀이 흐르지 않을 때까지 익혀요.',
+      '빵에 아보카도와 토마토를 올리고 스크램블 에그를 곁들여요. 후추를 가볍게 뿌려 마무리해요.'
+    ]
+  },
+  {
+    time: '아침',
+    title: '블루베리 밀크 오트밀',
+    minutes: 10,
+    photo: 'oatmeal.jpg',
+    photographer: 'Tyraan Lopes',
+    source: 'https://unsplash.com/photos/-ub7a-DnerU',
+    allergens: '우유 · 귀리 제품에 따라 밀 혼입 가능',
+    ingredients: [
+      ['오트밀(마른 귀리)', 60, 'oats', 'starch'],
+      ['저지방 우유', 200, 'milk', 'protein'],
+      ['블루베리', 100, 'blueberries']
+    ],
+    reason: '귀리와 블루베리로 식이섬유를, 우유로 단백질을 챙겨요. 따뜻하고 부드러운 아침 메뉴예요.',
+    seasoningWeights: [
+      ['계피', 0.5, 'cinnamon']
+    ],
+    seasoning: '계피가루 약간',
+    steps: [
+      '작은 냄비에 귀리와 우유를 넣고 약불에서 저어가며 끓여요. 너무 되직하면 물을 조금 넣어요.',
+      '귀리가 부드러워지면 블루베리의 절반을 넣고 가볍게 으깨 색과 향을 내요.',
+      '그릇에 담고 남은 블루베리와 계피를 올려요.'
+    ]
+  },
+  {
+    time: '점심',
+    title: '레몬 병아리콩 현미 샐러드',
+    minutes: 15,
+    photo: 'chickpea.jpg',
+    photographer: 'Sumit Bhatia',
+    source: 'https://unsplash.com/photos/emy9Rhhn2PI',
+    allergens: '병아리콩(콩류)',
+    ingredients: [
+      ['지은 현미밥', 155, 'rice', 'starch'],
+      ['익힌 병아리콩', 145, 'chickpea', 'protein'],
+      ['오이', 80, 'cucumber'],
+      ['방울토마토', 75, 'tomato'],
+      ['샐러드용 어린 시금치', 40, 'spinach']
+    ],
+    reason: '병아리콩으로 식물성 단백질과 식이섬유를 챙기고, 현미와 생채소를 곁들여 씹는 맛을 살렸어요.',
+    seasoningWeights: [
+      ['올리브유', 9, 'oil'],
+      ['레몬즙', 15, 'lemon'],
+      ['후추', 0.3, 'blackPepper']
+    ],
+    seasoning: '올리브유 2작은술, 레몬즙 1큰술, 후추 약간',
+    steps: [
+      '익힌 병아리콩의 물기를 빼요. 오이와 방울토마토를 한입 크기로 썰고 시금치를 씻어요.',
+      '올리브유와 레몬즙, 후추를 섞어 드레싱을 만들어요.',
+      '현미밥 위에 병아리콩과 채소를 올린 뒤 먹기 직전에 드레싱을 뿌려요.'
+    ]
+  },
+  {
+    time: '점심',
+    title: '노릇한 두부 채소 볶음밥',
+    minutes: 20,
+    photo: 'tofu.jpg',
+    photographer: 'Pavan Reddy',
+    source: 'https://unsplash.com/photos/-4V4SjHPPDk',
+    allergens: '대두 · 간장 제품에 따라 밀',
+    ingredients: [
+      ['지은 현미밥', 175, 'rice', 'starch'],
+      ['단단한 두부', 150, 'tofu', 'protein'],
+      ['당근', 65, 'carrot'],
+      ['파프리카', 65, 'bellPepper'],
+      ['옥수수', 40, 'corn']
+    ],
+    reason: '두부의 식물성 단백질에 현미와 채소를 곁들였어요. 두부 겉면을 바삭하게 구워 한 그릇에 식감도 더했어요.',
+    seasoningWeights: [
+      ['올리브유', 9, 'oil'],
+      ['간장', 5.3, 'soySauce'],
+      ['마늘', 3, 'garlic']
+    ],
+    seasoning: '올리브유 2작은술, 간장 1작은술, 마늘 1쪽',
+    steps: [
+      '두부의 물기를 눌러 빼고 네모나게 썰어요. 당근과 파프리카, 마늘은 잘게 썰어요.',
+      '기름 절반을 두른 팬에 두부를 노릇하게 구워 덜어 두고, 남은 기름에 마늘과 채소를 볶아요.',
+      '현미밥과 간장을 넣어 뜨겁게 볶은 뒤, 마지막에 두부를 섞어 모양을 살려요.'
+    ]
+  },
+  {
+    time: '저녁',
+    title: '새우 토마토 통밀 파스타',
+    minutes: 25,
+    photo: 'shrimp-pasta.jpg',
+    photographer: 'Benjamin Jauregui',
+    source: 'https://unsplash.com/photos/OdAPjRo1K1E',
+    allergens: '갑각류(새우) · 밀',
+    ingredients: [
+      ['삶은 통밀 파스타', 210, 'pasta', 'starch'],
+      ['껍질 벗긴 새우(조리 전)', 150, 'shrimp', 'protein'],
+      ['방울토마토', 150, 'tomato']
+    ],
+    reason: '통밀 면에서 탄수화물과 식이섬유를, 새우에서 단백질을 챙겨요. 마늘과 바질이 토마토의 풍미를 살려줘요.',
+    seasoningWeights: [
+      ['올리브유', 9, 'oil'],
+      ['마늘', 6, 'garlic'],
+      ['바질', 5, 'basil'],
+      ['후추', 0.3, 'blackPepper']
+    ],
+    seasoning: '올리브유 2작은술, 마늘 2쪽, 생바질 한 줌(약 5g), 후추 약간',
+    steps: [
+      '통밀 파스타를 포장 안내대로 삶고 면수를 조금 남겨요. 방울토마토는 반으로 잘라요.',
+      '올리브유에 마늘을 볶다가 토마토를 넣어 부드럽게 익혀요. 새우를 넣고 속살이 불투명해질 때까지 충분히 익혀요.',
+      '면과 면수를 조금 넣어 버무린 뒤 불을 끄고 바질과 후추를 더해요.'
+    ]
+  },
+  {
+    time: '저녁',
+    title: '마늘 닭가슴살과 브로콜리 구이',
+    minutes: 30,
+    photo: 'chicken-broccoli.jpg',
+    photographer: 'Tommaso Buzio',
+    source: 'https://unsplash.com/photos/j2M7FShjOQw',
+    allergens: '대두 · 간장 제품에 따라 밀',
+    ingredients: [
+      ['닭가슴살(조리 전)', 155, 'chicken', 'protein'],
+      ['감자(조리 전)', 250, 'potato', 'starch'],
+      ['브로콜리', 150, 'broccoli']
+    ],
+    reason: '닭가슴살로 단백질을, 감자로 탄수화물을 챙겨요. 브로콜리를 함께 구워 식이섬유를 더하고 가장자리의 고소한 맛도 살렸어요.',
+    seasoningWeights: [
+      ['올리브유', 9, 'oil'],
+      ['간장', 5.3, 'soySauce'],
+      ['마늘', 6, 'garlic'],
+      ['후추', 0.3, 'blackPepper']
+    ],
+    seasoning: '올리브유 2작은술, 간장 1작은술, 마늘 2쪽, 후추 약간',
+    steps: [
+      '오븐을 210°C로 예열해요. 감자를 얇게 썰고 기름 절반에 버무려 12분 먼저 구워요.',
+      '닭가슴살에 간장과 다진 마늘, 후추를 바르고 감자 옆에 놓아요. 남은 기름을 묻힌 브로콜리도 넣어요.',
+      '닭의 가장 두꺼운 곳이 74°C에 이를 때까지 구워요. 브로콜리가 먼저 익으면 꺼내 두었다가 곁들여요.'
+    ]
   }
 ];
+
+const mealSlots = ['아침', '점심', '저녁'].map(time => meals.filter(meal => meal.time === time));
+const combinationCount = mealSlots.reduce((count, slot) => count * slot.length, 1);
+
+function selectMenus(variation) {
+  // Advance each meal together while cycling through all possible combinations.
+  const breakfast = variation % mealSlots[0].length;
+  return mealSlots.map((slot, index) => {
+    const digit = variation % slot.length;
+    variation = Math.floor(variation / slot.length);
+    return slot[(digit + (index === 0 ? 0 : breakfast)) % slot.length];
+  });
+}
 
 const activityFactors = {low: 1.2, moderate: 1.4, high: 1.6};
 
@@ -90,15 +280,15 @@ function mealPreferences({age, sex, height, weight, activity, goal}) {
   return {isYouth, size, goal: isYouth ? 'balanced' : goal};
 }
 
-export function recommendMeals(profile) {
-  return mealsFor(mealPreferences(profile));
+export function recommendMeals(profile, variation = 0) {
+  return mealsFor({...mealPreferences(profile), variation});
 }
 
-function mealsFor({isYouth, size, goal}) {
+function mealsFor({isYouth, size, goal, variation = 0}) {
   const proteinScale = !isYouth && goal === 'training' ? size * 1.15 : size;
   const starchScale = !isYouth && goal === 'hearty' ? size * 1.15 : size;
 
-  return meals.map(meal => {
+  return selectMenus(variation).map(meal => {
     const ingredients = meal.ingredients.map(([name, grams, food, group]) => {
       const scale = group === 'protein' ? proteinScale : group === 'starch' ? starchScale : 1;
       return [name, Math.round(grams * scale / 5) * 5, food];
@@ -116,7 +306,11 @@ function readSavedMeals() {
   try {
     const saved = JSON.parse(localStorage.getItem(mealStorageKey));
     if (saved && typeof saved.isYouth === 'boolean' &&
-        [1, 1.1, 1.25].includes(saved.size) && mealGoals.includes(saved.goal)) return saved;
+        [1, 1.1, 1.25].includes(saved.size) && mealGoals.includes(saved.goal)) {
+      const variation = Number.isInteger(saved.variation) && saved.variation >= 0 && saved.variation < combinationCount
+        ? saved.variation : 0;
+      return {...saved, variation};
+    }
   } catch {
     // A blocked or unreadable store should not prevent recommendations.
   }
@@ -131,6 +325,8 @@ export function initMeals() {
   const adultFields = document.getElementById('meal-adult-fields');
   const list = document.getElementById('meal-list');
   const status = document.getElementById('meal-status');
+  const nextMenu = document.getElementById('meal-next');
+  let currentPlan = readSavedMeals();
   const template = document.getElementById('meal-card-template');
   const links = document.querySelectorAll('a[href="#meals"]');
 
@@ -199,21 +395,37 @@ export function initMeals() {
     if (adultFields.hidden === !showAdultFields) return;
     adultFields.hidden = !showAdultFields;
     adultFields.disabled = !showAdultFields;
+    currentPlan = null;
+    nextMenu.hidden = true;
     list.replaceChildren();
     status.textContent = '';
   }
 
   function showMeals(preferences, restored = false) {
     const {isYouth, goal} = preferences;
+    currentPlan = preferences;
     list.replaceChildren(...mealsFor(preferences).map(renderMeal));
+    nextMenu.hidden = false;
     status.textContent = isYouth
       ? '성장기에 참고할 아침 · 점심 · 저녁 메뉴예요. 칼이나 뜨거운 조리 도구는 어른과 함께 사용해요.'
       : '입력하신 조건을 반영한 아침 · 점심 · 저녁 1인분 예시예요.';
-    if (!isYouth && goal === 'training') status.textContent += ' 운동 후 단백질을 챙길 수 있도록 요거트·닭·연어의 양을 늘렸어요.';
-    if (!isYouth && goal === 'hearty') status.textContent += ' 활동 많은 날에 든든하게 먹을 수 있도록 그래놀라·현미밥·감자의 양을 늘렸어요.';
+    if (!isYouth && goal === 'training') status.textContent += ' 운동 후 단백질을 챙길 수 있도록 단백질 재료의 양을 늘렸어요.';
+    if (!isYouth && goal === 'hearty') status.textContent += ' 활동 많은 날에 든든하게 먹을 수 있도록 곡류나 감자의 양을 늘렸어요.';
     if (restored) status.textContent = '마지막으로 추천받은 식단이에요. ' + status.textContent;
   }
 
+  function showAndSaveNext(preferences) {
+    const variation = currentPlan ? (currentPlan.variation + 1) % combinationCount : 0;
+    showMeals({...preferences, variation});
+    try {
+      localStorage.setItem(mealStorageKey, JSON.stringify(currentPlan));
+    } catch {
+      status.textContent += ' 이 브라우저에서는 식단을 저장할 수 없어요.';
+    }
+    status.focus();
+  }
+
+  nextMenu.addEventListener('click', () => showAndSaveNext(currentPlan));
   form.addEventListener('submit', event => {
     event.preventDefault();
     const fields = new FormData(form);
@@ -223,20 +435,13 @@ export function initMeals() {
       weight: Number(fields.get('weight')), sex: fields.get('sex'),
       activity: fields.get('activity'), goal: fields.get('goal')
     });
-    showMeals(preferences);
-    try {
-      localStorage.setItem(mealStorageKey, JSON.stringify(preferences));
-    } catch {
-      status.textContent += ' 이 브라우저에서는 식단을 저장할 수 없어요.';
-    }
-    status.focus();
+    showAndSaveNext(preferences);
   });
 
   ageInput.addEventListener('input', updateAgeMode);
   window.addEventListener('pageshow', updateAgeMode);
   updateAgeMode();
-  const saved = readSavedMeals();
-  if (saved) showMeals(saved, true);
+  if (currentPlan) showMeals(currentPlan, true);
   form.querySelector('button[type=submit]').disabled = false;
   window.addEventListener('hashchange', showPage);
   showPage();

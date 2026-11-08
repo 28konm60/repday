@@ -344,6 +344,7 @@ progress::-moz-progress-bar { background: #738e49; }
 .meal-submit:hover { background: #3a532e; color: #fff; }
 .meal-note, .meal-allergens { font-size: 12px; }
 #meal-status { font-weight: 700; margin: 24px 0 12px; }
+.meal-next { margin-bottom: 14px; background: #e5edcf; font-weight: 750; }
 #meal-status:empty { display: none; }
 .meal-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
 .meal-card { min-width: 0; background: #fcfcf6; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }

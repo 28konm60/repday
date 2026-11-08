@@ -1,8 +1,10 @@
 const cachePrefix = 'repday-' + self.registration.scope + '-';
-const cacheName = cachePrefix + 'v15';
+const cacheName = cachePrefix + 'v16';
 const files = ['./', './index.html', './style.css', './app.mjs', './routine.mjs', './meals.mjs',
   './manifest.webmanifest', './icon-192.png', './icon-512.png',
-  './meal-photos/yogurt.jpg', './meal-photos/chicken.jpg', './meal-photos/salmon.jpg'];
+  './meal-photos/yogurt.jpg', './meal-photos/chicken.jpg', './meal-photos/salmon.jpg',
+  './meal-photos/avocado-toast.jpg', './meal-photos/oatmeal.jpg', './meal-photos/chickpea.jpg',
+  './meal-photos/tofu.jpg', './meal-photos/shrimp-pasta.jpg', './meal-photos/chicken-broccoli.jpg'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(cacheName)
