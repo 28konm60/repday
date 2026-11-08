@@ -36,7 +36,11 @@ save();
 const dayButtons = Array.from({length: 3}, (_, index) => {
   const button = document.createElement('button');
   button.type = 'button';
-  button.textContent = (index + 1) + '일 차';
+  const number = document.createElement('span');
+  number.textContent = 'DAY 0' + (index + 1);
+  const target = document.createElement('small');
+  target.textContent = ['하체 · 엉덩이', '상체 · 등', '코어 · 전신'][index];
+  button.append(number, target);
   button.addEventListener('click', () => {
     day = index;
     render();
@@ -66,6 +70,7 @@ function render() {
   byId('exercises').replaceChildren(...exercises.map(({name, dose, rest, method, audioId}, index) => {
     const row = document.createElement('li');
     row.className = 'exercise';
+    row.dataset.number = String(index + 1).padStart(2, '0');
     const label = document.createElement('label');
     const input = document.createElement('input');
     input.type = 'checkbox';
@@ -293,6 +298,7 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
 
 function renderTrophies() {
   const progress = workoutProgress(state.history);
+  byId('trophy-count').textContent = trophies.filter(trophy => progress[trophy.metric] >= trophy.target).length + ' / ' + trophies.length + ' 획득';
   byId('trophies').replaceChildren(...trophies.map(trophy => {
     const earned = progress[trophy.metric] >= trophy.target;
     const card = document.createElement('li');
@@ -311,3 +317,7 @@ function renderTrophies() {
     return card;
   }));
 }
+
+document.querySelector('a[href="#records"]').addEventListener('click', () => {
+  byId('records').open = true;
+});
