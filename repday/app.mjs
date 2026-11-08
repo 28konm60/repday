@@ -128,7 +128,7 @@ function stopVoice() {
 
 function playVoice(audioId) {
   stopVoice();
-  const audio = new Audio('./voice/' + audioId + '.wav');
+  const audio = new Audio('./voice-male/' + audioId + '.mp3');
   narration = audio;
   byId('voice-stop').hidden = false;
   byId('voice-status').textContent = '음성 안내를 불러오는 중';
