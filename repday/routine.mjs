@@ -25,10 +25,39 @@ const days = [
   ]]
 ];
 
+const extras = [
+  [
+    ['사이드 런지','한 발을 옆으로 넓게 디디며 엉덩이를 뒤로 보내세요.','회씩'],
+    ['스플릿 스쿼트','두 발을 앞뒤로 두고 몸을 수직으로 내렸다 올리세요.','회씩'],
+    ['와이드 스쿼트','두 발을 넓게 벌리고 무릎과 발끝 방향을 맞추며 앉으세요.','회'],
+    ['싱글 레그 브리지','누워 한 발을 들고 반대쪽 발로 바닥을 밀어 엉덩이를 드세요.','회씩'],
+    ['옆으로 누워 다리 들기','옆으로 누워 골반을 고정하고 위쪽 다리를 천천히 드세요.','회씩'],
+    ['동키 킥','네발 자세에서 무릎을 굽힌 채 한쪽 발바닥을 위로 밀어 주세요.','회씩'],
+    ['파이어 하이드런트','네발 자세에서 골반을 고정하고 무릎을 옆으로 벌리세요.','회씩']
+  ],
+  [
+    ['파이크 푸쉬업','엉덩이를 높인 자세에서 팔꿈치를 굽혀 머리를 바닥 쪽으로 내리세요.','회'],
+    ['엎드려 Y 올리기','엎드려 팔을 Y자로 뻗고 어깨를 낮춘 채 팔을 조금 드세요.','회'],
+    ['엎드려 T 올리기','엎드려 팔을 옆으로 벌리고 날개뼈를 모으며 팔을 조금 드세요.','회'],
+    ['스캐풀라 푸쉬업','플랭크 자세에서 팔을 편 채 날개뼈를 모았다가 바닥을 밀어내세요.','회'],
+    ['좁은 푸쉬업','손을 어깨보다 조금 좁게 두고 팔꿈치를 몸 가까이 굽혔다 펴세요.','회'],
+    ['리버스 플랭크','앉아서 손을 몸 뒤에 두고 가슴을 펴며 엉덩이를 들어 주세요.','초'],
+    ['베어 홀드','네발 자세에서 무릎을 바닥에서 조금 띄우고 등을 평평하게 유지하세요.','초']
+  ],
+  [
+    ['마운틴 클라이머','플랭크 자세에서 무릎을 번갈아 가슴 쪽으로 당기세요.','회씩'],
+    ['바이시클 크런치','누워 반대쪽 어깨와 무릎을 가까이하며 천천히 교차하세요.','회씩'],
+    ['리버스 크런치','누워 무릎을 굽히고 배에 힘을 주며 골반을 살짝 말아 올리세요.','회'],
+    ['할로우 홀드','누워 허리를 바닥에 붙이고 팔과 다리를 편한 높이로 들어 유지하세요.','초'],
+    ['플랭크 힙 터치','팔꿈치 플랭크에서 골반을 좌우로 천천히 회전하세요.','회씩'],
+    ['점핑 잭','발을 벌리며 팔을 올렸다가 가볍게 착지하며 돌아오세요.','초'],
+    ['버피','손을 바닥에 짚고 두 발을 뒤로 보냈다가 돌아와 일어나세요.','회']
+  ]
+];
 const levels = {
-  beginner: {sets: 2, reps: 8, seconds: 20, rest: 60},
-  standard: {sets: 3, reps: 10, seconds: 30, rest: 45},
-  advanced: {sets: 3, reps: 15, seconds: 40, rest: 40}
+  beginner: {sets: 2, reps: 8, seconds: 20, rest: 60, count: 3},
+  standard: {sets: 4, reps: 12, seconds: 30, rest: 60, count: 6},
+  advanced: {sets: 6, reps: 16, seconds: 40, rest: 90, count: 10}
 };
 
 const dayMs = 86400000;
@@ -46,18 +75,21 @@ export function schedule(now, anchor) {
   };
 }
 
-export function planFor(cycle, day, level) {
+export function planFor(cycle, day, level, advancedSets = 6) {
   const [focus, slots] = days[day];
-  const {sets, reps, seconds, rest} = levels[level] ?? levels.beginner;
+  const config = levels[level] ?? levels.beginner;
+  const {reps, seconds, rest, count} = config;
+  const sets = level === 'advanced' ? Math.max(6, Math.min(10, Number(advancedSets) || 6)) : config.sets;
+  const selectedSlots = [...slots, ...extras[day].map(exercise => [exercise])].slice(0, count);
   return {
     focus,
-    exercises: slots.map((options, index) => {
+    exercises: selectedSlots.map((options, index) => {
       const variant = (cycle + Math.floor(cycle / 2) * index) % options.length;
       const [name, method, unit] = options[variant];
       const amount = unit.startsWith('초') ? seconds : reps;
       return {
         name, method, dose: sets + '세트 × ' + amount + unit, rest,
-        audioId: [day, index, variant, level].join('-')
+        sets, audioId: [day, index, variant].join('-')
       };
     })
   };
@@ -66,17 +98,25 @@ export function planFor(cycle, day, level) {
 export function workoutProgress(history) {
   const completedDays = new Map();
   let exercises = 0;
+  let sets = 0;
+  let standardDays = 0;
+  let advancedDays = 0;
   for (const [key, entry] of Object.entries(history)) {
     const [cycle, day, level] = key.split('/');
-    const plan = planFor(Number(cycle), Number(day), level);
+
     const checked = new Set(entry.checked);
-    exercises += checked.size;
-    if (!plan.exercises.every((_, index) => checked.has(index))) continue;
+    const total = entry.total ?? 3;
+    const valid = [...checked].filter(index => Number.isInteger(index) && index >= 0 && index < total);
+    exercises += valid.length;
+    sets += valid.length * (entry.sets ?? (level === 'beginner' ? 2 : 3));
+    if (valid.length !== total) continue;
+    if (entry.version === 5 && level === 'standard') standardDays++;
+    if (entry.version === 5 && level === 'advanced') advancedDays++;
     if (!completedDays.has(cycle)) completedDays.set(cycle, new Set());
     completedDays.get(cycle).add(day);
   }
   const routines = [...completedDays.values()].filter(days => days.size === 3).length;
-  return {exercises, routines};
+  return {exercises, routines, sets, standardDays, advancedDays};
 }
 
 export function pendingCheckIn(routines, records) {
@@ -86,3 +126,14 @@ export function pendingCheckIn(routines, records) {
   }
   return null;
 }
+
+export const trophies = [
+  {id:'first', name:'첫 덤벨', goal:'운동 1개 완료', metric:'exercises', target:1, color:'#c79266', shape:'round'},
+  {id:'bronze', name:'브론즈 덤벨', goal:'누적 30세트', metric:'sets', target:30, color:'#cd8754', shape:'square'},
+  {id:'silver', name:'실버 덤벨', goal:'누적 100세트', metric:'sets', target:100, color:'#cedce5', shape:'round'},
+  {id:'gold', name:'골드 덤벨', goal:'누적 300세트', metric:'sets', target:300, color:'#ffd05d', shape:'square'},
+  {id:'routine', name:'에메랄드 덤벨', goal:'3일 루틴 4회', metric:'routines', target:4, color:'#70e0a1', shape:'round'},
+  {id:'standard', name:'사파이어 덤벨', goal:'중수 하루치 3회', metric:'standardDays', target:3, color:'#6aaeff', shape:'square'},
+  {id:'advanced', name:'루비 덤벨', goal:'고수 하루치 3회', metric:'advancedDays', target:3, color:'#ff7994', shape:'round'},
+  {id:'legend', name:'왕관 덤벨', goal:'누적 1000세트', metric:'sets', target:1000, color:'#c8a5ff', shape:'crown'}
+];

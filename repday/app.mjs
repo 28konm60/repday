@@ -1,11 +1,11 @@
-import {schedule, planFor, workoutProgress, pendingCheckIn} from './routine.mjs';
+import {schedule, planFor, workoutProgress, pendingCheckIn, trophies} from './routine.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
 const dateFormat = new Intl.DateTimeFormat('ko-KR', {
   timeZone: 'Asia/Seoul', month: 'long', day: 'numeric'
 });
-const state = {anchor: null, level: 'beginner', history: {}, bodyRecords: []};
+const state = {anchor: null, level: 'beginner', history: {}, bodyRecords: [], advancedSets: 6};
 
 try {
   Object.assign(state, JSON.parse(localStorage.getItem(storageKey) || '{}'));
@@ -46,8 +46,11 @@ const dayButtons = Array.from({length: 3}, (_, index) => {
 });
 
 function render() {
-  const {focus, exercises} = planFor(current.cycle, day, state.level);
-  const key = [current.cycle, day, state.level].join('/');
+  const {focus, exercises} = planFor(current.cycle, day, state.level, state.advancedSets);
+  byId('advanced-controls').hidden = state.level !== 'advanced';
+  byId('level-summary').textContent = exercises.length + '종목 · 종목당 ' + exercises[0].sets + '세트';
+  stopVoice();
+  const key = [current.cycle, day, state.level, 'v5', exercises[0].sets].join('/');
   const checked = new Set(state.history[key]?.checked);
   byId('day-label').textContent = 'DAY 0' + (day + 1);
   byId('focus').textContent = focus;
@@ -79,12 +82,13 @@ function render() {
       else checked.delete(index);
       if (checked.size) state.history[key] = {
         checked: [...checked], at: Date.now(), label: (day + 1) + '일 차 · ' + focus,
-        level: level.selectedOptions[0].textContent
+        level: level.selectedOptions[0].textContent, total: exercises.length, sets: exercises[0].sets, version: 5
       };
       else delete state.history[key];
       save();
       updateProgress();
       renderHistory();
+      renderTrophies();
       const milestone = renderBody();
       if (milestone !== null && milestone !== previousMilestone && input.checked && checkIn.hidden) {
         openCheckIn(milestone, true);
@@ -128,7 +132,7 @@ function stopVoice() {
 
 function playVoice(audioId) {
   stopVoice();
-  const audio = new Audio('./voice-male/' + audioId + '.mp3');
+  const audio = new Audio('./voice-v5/' + audioId + '.mp3');
   narration = audio;
   byId('voice-stop').hidden = false;
   byId('voice-status').textContent = '음성 안내를 불러오는 중';
@@ -259,6 +263,12 @@ function refreshSchedule() {
   render();
 }
 
+byId('advanced-sets').value = state.advancedSets;
+byId('advanced-sets').addEventListener('change', event => {
+  state.advancedSets = Number(event.target.value);
+  save();
+  render();
+});
 level.addEventListener('change', () => {
   state.level = level.value;
   save();
@@ -273,9 +283,31 @@ document.addEventListener('visibilitychange', () => {
 setInterval(updateTimer, 250);
 setInterval(refreshSchedule, 15000);
 render();
+renderTrophies();
 const pending = renderBody();
 if (pending !== null) openCheckIn(pending, false);
 
 if ('serviceWorker' in navigator && window.isSecureContext) {
   navigator.serviceWorker.register('./sw.js').catch(error => console.warn('오프라인 준비 실패', error));
+}
+
+function renderTrophies() {
+  const progress = workoutProgress(state.history);
+  byId('trophies').replaceChildren(...trophies.map(trophy => {
+    const earned = progress[trophy.metric] >= trophy.target;
+    const card = document.createElement('li');
+    card.className = 'trophy ' + (earned ? 'earned' : 'locked');
+    card.style.setProperty('--trophy', trophy.color);
+    const icon = document.createElement('div');
+    icon.className = 'dumbbell ' + trophy.shape;
+    icon.setAttribute('aria-hidden', 'true');
+    const title = document.createElement('strong');
+    title.textContent = trophy.name;
+    const status = document.createElement('p');
+    status.textContent = earned ? '획득 완료' : Math.min(progress[trophy.metric], trophy.target) + ' / ' + trophy.target;
+    const goal = document.createElement('small');
+    goal.textContent = trophy.goal;
+    card.append(icon, title, status, goal);
+    return card;
+  }));
 }

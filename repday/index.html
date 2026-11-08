@@ -17,7 +17,11 @@
 <p class="eyebrow">BODYWEIGHT / 3 DAY PLAN</p>
 <h1 id="title">오늘도 한 세트.</h1>
 <p>3일 맨몸 운동 루틴 · 내 속도에 맞춰 시작하세요.</p>
-<div class="controls"><label>운동 강도 <select id="level"><option value="beginner">초급</option><option value="standard">보통</option><option value="advanced">상급</option></select></label><span id="renewal"></span></div>
+<div class="controls"><label>운동 강도 <select id="level"><option value="beginner">초보</option><option value="standard">중수</option><option value="advanced">고수</option></select></label><span id="renewal"></span></div>
+<p id="level-summary"></p>
+<label id="advanced-controls" hidden>고수 종목당 세트
+<select id="advanced-sets"><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
+<p>등급은 언제든 변경할 수 있어요. 각 등급과 세트 수의 진행 상황을 따로 저장해요.</p>
 </section>
 <nav id="days" aria-label="운동 날짜"></nav>
 <section class="panel" aria-labelledby="focus">
@@ -54,7 +58,8 @@
 <p id="body-summary"></p>
 <ul id="body-history"></ul>
 </section>
-<footer>REPDAY · 3일 맨몸 운동 · 남성 음성 v4</footer>
+<section class="panel"><h2>나의 덤벨 트로피</h2><p>운동 완료 체크를 기준으로 획득해요. 체크를 취소하면 다시 계산돼요.</p><ul id="trophies"></ul></section>
+<footer>REPDAY · 3일 맨몸 운동 · 등급·트로피 v5</footer>
 </main>
 </body>
 </html>

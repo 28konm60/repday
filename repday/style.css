@@ -37,3 +37,15 @@ footer{text-align:center;padding:20px 0 32px}
 #body-history li{padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
 #body-history p{margin:4px 0 0}
 @media(max-width:480px){.exercise-actions{grid-column:1/-1;grid-row:3;margin-left:29px}}
+
+#trophies{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px}
+.trophy{text-align:center;padding:20px 8px;border:1px solid var(--line);border-radius:14px}
+.trophy.earned{border-color:var(--trophy);background:#25322a}
+.trophy.locked{opacity:.55}
+.trophy strong,.trophy small{display:block}.trophy p{margin:8px 0}
+.dumbbell{position:relative;width:66px;height:12px;background:var(--trophy);margin:25px auto 35px;border-radius:5px;transform:rotate(-25deg)}
+.dumbbell:before,.dumbbell:after{content:'';position:absolute;top:-14px;width:18px;height:40px;border:3px solid var(--trophy);background:#18251e;border-radius:4px}
+.dumbbell:before{left:0}.dumbbell:after{right:0}
+.dumbbell.round:before,.dumbbell.round:after{border-radius:50%}
+.dumbbell.crown{box-shadow:0 0 18px var(--trophy)}
+.dumbbell.crown:before,.dumbbell.crown:after{clip-path:polygon(0 0,35% 15%,50% 0,70% 15%,100% 0,100% 100%,0 100%)}
