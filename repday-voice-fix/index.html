@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111713">
+<title>리프데이 · 3일 맨몸 운동</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="stylesheet" href="./style.css">
+<script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<main>
+<header><span class="brand">↗ REPDAY</span><span class="tag">장비 없이 · 하루씩</span></header>
+<section class="hero" aria-labelledby="title">
+<p class="eyebrow">BODYWEIGHT / 3 DAY PLAN</p>
+<h1 id="title">오늘도 한 세트.</h1>
+<p>3일 맨몸 운동 루틴 · 내 속도에 맞춰 시작하세요.</p>
+<div class="controls"><label>운동 강도 <select id="level"><option value="beginner">초급</option><option value="standard">보통</option><option value="advanced">상급</option></select></label><span id="renewal"></span></div>
+</section>
+<nav id="days" aria-label="운동 날짜"></nav>
+<section class="panel" aria-labelledby="focus">
+<div class="heading"><div><p class="eyebrow" id="day-label"></p><h2 id="focus"></h2></div><strong id="progress"></strong></div>
+<progress id="meter" max="3" value="0" aria-label="선택한 날짜 진행률"></progress>
+<ul id="exercises"></ul>
+<p id="voice-status" role="status"></p>
+<button id="voice-stop" type="button" hidden>음성 끄기</button>
+</section>
+<section class="timer panel" aria-labelledby="timer-title">
+<div><h2 id="timer-title">세트 사이 휴식</h2><p id="timer-status" role="status">운동 옆의 휴식 버튼으로 시작하세요.</p></div>
+<div class="clock"><output id="remaining" role="timer" aria-live="off">00:00</output><button id="stop" type="button" disabled>종료</button></div>
+</section>
+<details class="panel"><summary>준비운동과 마무리</summary><p>시작 전 3~5분 정도 제자리 걷기와 가벼운 관절 움직임으로 몸을 풀어 주세요.</p><p>마친 후 천천히 걷고, 사용한 부위를 편한 범위에서 가볍게 늘려 주세요. 운동 중 통증이 느껴지면 중단하세요.</p></details>
+<details class="panel"><summary>최근 운동 기록</summary><p id="history-note">완료 표시를 하면 이 기기에 저장됩니다.</p><ul id="history"></ul></details>
+<section class="panel" aria-labelledby="body-title">
+<p class="eyebrow">MY PROGRESS</p>
+<h2 id="body-title">운동과 몸의 변화</h2>
+<p id="routine-count"></p>
+<progress id="routine-meter" max="4" value="0" aria-label="다음 몸 상태 질문까지 완료한 루틴"></progress>
+<p id="check-in-prompt" role="status"></p>
+<button id="check-in-open" type="button">오늘 몸 상태 기록</button>
+<form id="check-in" hidden>
+  <label>오늘 컨디션은 어때요?
+    <select name="energy" required><option value="">선택하세요</option><option>낮음</option><option>보통</option><option>좋음</option></select>
+  </label>
+  <label>근육이 얼마나 뻐근해요?
+    <select name="soreness" required><option value="">선택하세요</option><option>없음</option><option>조금</option><option>많이</option></select>
+  </label>
+  <label>체중 (kg, 선택)<input name="weight" type="number" inputmode="decimal" min="0.1" step="0.1"></label>
+  <label>느낀 변화 (선택)<textarea name="note" maxlength="250" rows="3" placeholder="예: 스쿼트가 전보다 편해졌어요"></textarea></label>
+  <div class="check-actions"><button type="submit">저장</button><button id="check-in-later" type="button">나중에</button></div>
+</form>
+<p id="body-summary"></p>
+<ul id="body-history"></ul>
+</section>
+<footer>REPDAY · 3일 맨몸 운동 · 음성 v3</footer>
+</main>
+</body>
+</html>
