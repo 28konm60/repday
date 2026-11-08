@@ -67,19 +67,23 @@
   <div class="meal-intro">
     <p class="eyebrow">REPDAY KITCHEN</p>
     <h2 id="meal-title" tabindex="-1">내 몸에 맞춘 식단</h2>
-    <p>신체 조건과 활동량을 입력하면 아침, 점심, 저녁 메뉴의 재료 양을 맞춰 드려요.</p>
+    <p>나이를 입력하면 아침, 점심, 저녁 메뉴와 조리법을 볼 수 있어요.</p>
   </div>
   <form id="meal-form">
     <div class="meal-fields">
-      <label>나이 (만)<input name="age" type="number" min="20" max="78" step="1" inputmode="numeric" placeholder="예: 30" required></label>
+      <label>나이 (만)<input name="age" type="number" min="6" max="78" step="1" inputmode="numeric" placeholder="예: 16" aria-describedby="meal-age-note" required></label>
+    </div>
+    <p id="meal-age-note" class="meal-note">만 6~19세는 나이만 입력해도 세 끼 메뉴를 볼 수 있어요. 만 20~78세는 신체 조건에 맞춘 분량도 볼 수 있어요.</p>
+    <fieldset class="meal-fields" id="meal-adult-fields" hidden disabled>
+      <legend class="meal-note">분량을 맞추기 위한 성인 정보</legend>
       <label>성별 (필요량 계산용)<select name="sex" required><option value="">선택</option><option value="female">여성</option><option value="male">남성</option></select></label>
       <label>키 (cm)<input name="height" type="number" min="100" max="250" step="0.1" inputmode="decimal" placeholder="예: 170" required></label>
       <label>체중 (kg)<input name="weight" type="number" min="30" max="300" step="0.1" inputmode="decimal" placeholder="예: 65" required></label>
       <label>평소 활동량<select name="activity"><option value="low">주로 앉아 있어요</option><option value="moderate" selected>가벼운 운동을 해요</option><option value="high">운동을 자주 해요</option></select></label>
       <label>식단 목표<select name="goal"><option value="balanced">균형 있게 먹기</option><option value="training">운동 후 단백질 챙기기</option><option value="hearty">활동 많은 날 든든하게 먹기</option></select></label>
-    </div>
+    </fieldset>
     <button class="meal-submit" type="submit" disabled>내 식단 추천받기 <span aria-hidden="true">↗</span></button>
-    <p class="meal-note">만 20~78세 성인을 위한 일반 메뉴 예시예요. 입력값은 저장하거나 전송하지 않아요. 알레르기가 있다면 재료와 제품 표시를 확인해 주세요.</p>
+    <p class="meal-note">입력값은 저장하거나 전송하지 않아요. 알레르기가 있다면 재료와 제품 표시를 확인해 주세요.</p>
   </form>
   <p id="meal-status" role="status" tabindex="-1"></p>
   <div class="meal-list" id="meal-list"></div>
@@ -104,7 +108,7 @@
     </div>
   </article>
 </template>
-<footer>REPDAY · 3일 맨몸 운동 · 디자인 v10</footer>
+<footer>REPDAY · 3일 맨몸 운동 · 디자인 v11</footer>
 </main>
 <nav class="bottom-nav" aria-label="빠른 이동"><a href="#workout"><span aria-hidden="true">↗</span>운동</a><a href="#records"><span aria-hidden="true">≡</span>기록</a><a href="#body-progress"><span aria-hidden="true">◉</span>몸 상태</a><a href="#awards"><span aria-hidden="true">☆</span>배지</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
 </body>

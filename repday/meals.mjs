@@ -37,6 +37,10 @@ const meals = [
 const activityFactors = {low: 1.2, moderate: 1.4, high: 1.6};
 
 export function recommendMeals({age, sex, height, weight, activity, goal}) {
+  if (age < 20) {
+    return meals.map(meal => ({...meal, ingredients: meal.ingredients.map(([name]) => name)}));
+  }
+
   // Use the Mifflin–St Jeor estimate to choose a broad example serving size.
   const resting = 10 * weight + 6.25 * height - 5 * age + (sex === 'male' ? 5 : -161);
   const estimated = resting * activityFactors[activity];
@@ -57,6 +61,8 @@ export function initMeals() {
   const page = document.getElementById('meals');
   const home = document.getElementById('training');
   const form = document.getElementById('meal-form');
+  const ageInput = form.elements.namedItem('age');
+  const adultFields = document.getElementById('meal-adult-fields');
   const list = document.getElementById('meal-list');
   const status = document.getElementById('meal-status');
   const template = document.getElementById('meal-card-template');
@@ -109,19 +115,34 @@ export function initMeals() {
     return card;
   }
 
+  function updateAgeMode() {
+    const showAdultFields = ageInput.validity.valid && ageInput.valueAsNumber >= 20;
+    if (adultFields.hidden === !showAdultFields) return;
+    adultFields.hidden = !showAdultFields;
+    adultFields.disabled = !showAdultFields;
+    list.replaceChildren();
+    status.textContent = '';
+  }
+
   form.addEventListener('submit', event => {
     event.preventDefault();
     const fields = new FormData(form);
+    const age = ageInput.valueAsNumber;
     const plan = recommendMeals({
-      age: Number(fields.get('age')), height: Number(fields.get('height')),
+      age, height: Number(fields.get('height')),
       weight: Number(fields.get('weight')), sex: fields.get('sex'),
       activity: fields.get('activity'), goal: fields.get('goal')
     });
     list.replaceChildren(...plan.map(renderMeal));
-    status.textContent = '입력하신 조건을 반영한 아침 · 점심 · 저녁 1인분 예시예요.';
+    status.textContent = age < 20
+      ? '성장기에 참고할 아침 · 점심 · 저녁 메뉴예요. 칼이나 뜨거운 조리 도구는 어른과 함께 사용해요.'
+      : '입력하신 조건을 반영한 아침 · 점심 · 저녁 1인분 예시예요.';
     status.focus();
   });
 
+  ageInput.addEventListener('input', updateAgeMode);
+  window.addEventListener('pageshow', updateAgeMode);
+  updateAgeMode();
   form.querySelector('button[type=submit]').disabled = false;
   window.addEventListener('hashchange', showPage);
   showPage();
