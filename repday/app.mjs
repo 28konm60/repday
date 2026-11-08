@@ -293,7 +293,34 @@ const pending = renderBody();
 if (pending !== null) openCheckIn(pending, false);
 
 if ('serviceWorker' in navigator && window.isSecureContext) {
-  navigator.serviceWorker.register('./sw.js').catch(error => console.warn('오프라인 준비 실패', error));
+  const workers = navigator.serviceWorker;
+  let controller = workers.controller;
+  let updatePending = false;
+
+  function applyUpdate() {
+    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden) return;
+    window.location.reload();
+  }
+
+  workers.addEventListener('controllerchange', () => {
+    if (controller && workers.controller !== controller) updatePending = true;
+    controller = workers.controller;
+    applyUpdate();
+  });
+  document.addEventListener('visibilitychange', applyUpdate);
+  setInterval(applyUpdate, 15000);
+
+  workers.register('./sw.js', {updateViaCache: 'none'}).then(registration => {
+    function checkForUpdate() {
+      if (document.hidden || !navigator.onLine) return;
+      registration.update().catch(error => console.warn('업데이트 확인 실패', error));
+    }
+
+    document.addEventListener('visibilitychange', checkForUpdate);
+    window.addEventListener('online', checkForUpdate);
+    setInterval(checkForUpdate, 5 * 60 * 1000);
+    checkForUpdate();
+  }).catch(error => console.warn('오프라인 준비 실패', error));
 }
 
 function renderTrophies() {

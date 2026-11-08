@@ -1,16 +1,19 @@
 const cachePrefix = 'repday-' + self.registration.scope + '-';
-const cacheName = cachePrefix + 'v7';
+const cacheName = cachePrefix + 'v8';
 const files = ['./', './index.html', './style.css', './app.mjs', './routine.mjs',
   './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(cacheName).then(cache => cache.addAll(files.map(file => new Request(file, {cache: 'reload'})))));
+  event.waitUntil(caches.open(cacheName)
+    .then(cache => cache.addAll(files.map(file => new Request(file, {cache: 'reload'}))))
+    .then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(caches.keys().then(keys => Promise.all(keys
     .filter(key => key.startsWith(cachePrefix) && key !== cacheName)
-    .map(key => caches.delete(key)))));
+    .map(key => caches.delete(key))))
+    .then(() => self.clients.claim()));
 });
 
 self.addEventListener('fetch', event => {
