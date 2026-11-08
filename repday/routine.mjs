@@ -52,9 +52,37 @@ export function planFor(cycle, day, level) {
   return {
     focus,
     exercises: slots.map((options, index) => {
-      const [name, method, unit] = options[(cycle + Math.floor(cycle / 2) * index) % options.length];
+      const variant = (cycle + Math.floor(cycle / 2) * index) % options.length;
+      const [name, method, unit] = options[variant];
       const amount = unit.startsWith('초') ? seconds : reps;
-      return {name, method, dose: sets + '세트 × ' + amount + unit, rest};
+      return {
+        name, method, dose: sets + '세트 × ' + amount + unit, rest,
+        audioId: [day, index, variant, level].join('-')
+      };
     })
   };
+}
+
+export function workoutProgress(history) {
+  const completedDays = new Map();
+  let exercises = 0;
+  for (const [key, entry] of Object.entries(history)) {
+    const [cycle, day, level] = key.split('/');
+    const plan = planFor(Number(cycle), Number(day), level);
+    const checked = new Set(entry.checked);
+    exercises += checked.size;
+    if (!plan.exercises.every((_, index) => checked.has(index))) continue;
+    if (!completedDays.has(cycle)) completedDays.set(cycle, new Set());
+    completedDays.get(cycle).add(day);
+  }
+  const routines = [...completedDays.values()].filter(days => days.size === 3).length;
+  return {exercises, routines};
+}
+
+export function pendingCheckIn(routines, records) {
+  const answered = new Set(records.map(record => record.milestone));
+  for (let milestone = 4; milestone <= routines; milestone += 4) {
+    if (!answered.has(milestone)) return milestone;
+  }
+  return null;
 }

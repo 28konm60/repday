@@ -27,3 +27,13 @@ ul{list-style:none;margin:0;padding:0}
 .timer p{margin:5px 0}summary{cursor:pointer;font-weight:700;min-height:36px;padding-top:6px}
 #history li{border-top:1px solid var(--line);padding:8px 0;color:var(--muted)}
 footer{text-align:center;padding:20px 0 32px}
+
+[hidden]{display:none!important}
+.exercise-actions,.check-actions{display:flex;flex-wrap:wrap;gap:6px}
+#voice-status:empty,#check-in-prompt:empty{display:none}
+#check-in{display:grid;gap:12px;margin-top:16px}
+#check-in label{display:grid;gap:5px}
+#check-in input,#check-in textarea{font:inherit;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:10px;background:#26372c;color:inherit;width:100%}
+#body-history li{padding:10px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+#body-history p{margin:4px 0 0}
+@media(max-width:480px){.exercise-actions{grid-column:1/-1;grid-row:3;margin-left:29px}}
