@@ -1,5 +1,5 @@
 const cachePrefix = 'repday-' + self.registration.scope + '-';
-const cacheName = cachePrefix + 'v6';
+const cacheName = cachePrefix + 'v7';
 const files = ['./', './index.html', './style.css', './app.mjs', './routine.mjs',
   './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 

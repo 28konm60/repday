@@ -1,4 +1,4 @@
-# 리프데이 디자인 v6
+# 리프데이 디자인 v7
 
 ## 실행
 VS Code에서 이 폴더를 열고 터미널에서 아래 명령을 실행합니다.
@@ -22,7 +22,7 @@ python -m http.server 8000 --bind 127.0.0.1
 https://github.com/28konm60/repday/tree/main/repday 에서 Add file → Upload files를 선택합니다.
 압축을 푼 폴더 안의 파일 9개와 voice-v5 폴더를 업로드하고 Commit changes를 누릅니다.
 배포가 끝나면 앱과 Safari의 해당 탭을 닫았다가 다시 엽니다.
-앱 맨 아래 디자인 v6 표시를 확인합니다.
+앱 맨 아래 디자인 v7 표시를 확인합니다.
 음성은 남성 목소리로 운동 방법을 읽습니다. 세트와 횟수는 화면에서 확인합니다.
 음성 파일을 불러올 때 인터넷 연결이 필요합니다.
 
