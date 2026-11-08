@@ -116,7 +116,8 @@ export function workoutProgress(history) {
     completedDays.get(cycle).add(day);
   }
   const routines = [...completedDays.values()].filter(days => days.size === 3).length;
-  return {exercises, routines, sets, standardDays, advancedDays};
+  const dayFinishes = [...completedDays.values()].reduce((total, days) => total + days.size, 0);
+  return {exercises, routines, sets, standardDays, advancedDays, dayFinishes};
 }
 
 export function pendingCheckIn(routines, records) {
@@ -135,5 +136,17 @@ export const badges = [
   {id:'routine', name:'에메랄드 배지', goal:'3일 루틴 4회', metric:'routines', target:4, color:'#70e0a1', symbol:'✦'},
   {id:'standard', name:'사파이어 배지', goal:'중수 하루치 3회', metric:'standardDays', target:3, color:'#6aaeff', symbol:'◆'},
   {id:'advanced', name:'루비 배지', goal:'고수 하루치 3회', metric:'advancedDays', target:3, color:'#ff7994', symbol:'✦'},
-  {id:'legend', name:'왕관 배지', goal:'누적 1000세트', metric:'sets', target:1000, color:'#c8a5ff', symbol:'★'}
+  {id:'legend', name:'왕관 배지', goal:'누적 1000세트', metric:'sets', target:1000, color:'#c8a5ff', symbol:'★'},
+  {id:'first-day', name:'하루 완주', goal:'하루 운동 목록 1회 완료', metric:'dayFinishes', target:1, color:'#b8d86f', symbol:'☀'},
+  {id:'seven-days', name:'일곱 번의 발걸음', goal:'하루 운동 목록 7회 완료', metric:'dayFinishes', target:7, color:'#a9d9a4', symbol:'↗'},
+  {id:'twenty-days', name:'꾸준한 움직임', goal:'하루 운동 목록 20회 완료', metric:'dayFinishes', target:20, color:'#a4d9cd', symbol:'✿'},
+  {id:'twenty-exercises', name:'스무 번의 도전', goal:'운동 누적 20개 완료', metric:'exercises', target:20, color:'#ffd0a6', symbol:'⚑'},
+  {id:'hundred-exercises', name:'백 번의 발자국', goal:'운동 누적 100개 완료', metric:'exercises', target:100, color:'#f2ba92', symbol:'➜'},
+  {id:'five-hundred-sets', name:'500세트 돌파', goal:'누적 500세트', metric:'sets', target:500, color:'#ffe099', symbol:'ϟ'},
+  {id:'first-routine', name:'첫 3일 루틴', goal:'3일 루틴 1회 완료', metric:'routines', target:1, color:'#b7e6bd', symbol:'◈'},
+  {id:'ten-routines', name:'루틴 마스터', goal:'3일 루틴 10회 완료', metric:'routines', target:10, color:'#a7dfd6', symbol:'✺'},
+  {id:'ten-standard-days', name:'중수의 페이스', goal:'중수 하루치 10회 완료', metric:'standardDays', target:10, color:'#a6c7f6', symbol:'◇'},
+  {id:'ten-advanced-days', name:'고수의 집중력', goal:'고수 하루치 10회 완료', metric:'advancedDays', target:10, color:'#f2b2c8', symbol:'✷'},
+  {id:'first-check-in', name:'나를 살피는 날', goal:'몸 상태 1회 기록', metric:'bodyCheckIns', target:1, color:'#d7c5ef', symbol:'♥'},
+  {id:'five-check-ins', name:'변화의 관찰자', goal:'몸 상태 5회 기록', metric:'bodyCheckIns', target:5, color:'#d9b9ed', symbol:'◎'}
 ];

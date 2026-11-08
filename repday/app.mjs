@@ -6,7 +6,7 @@ const storageKey = 'repday-v1';
 const dateFormat = new Intl.DateTimeFormat('ko-KR', {
   timeZone: 'Asia/Seoul', month: 'long', day: 'numeric'
 });
-const state = {anchor: null, level: 'beginner', history: {}, bodyRecords: [], advancedSets: 6};
+const state = {anchor: null, level: 'beginner', history: {}, bodyRecords: [], advancedSets: 6, deviceSessionId: null};
 
 try {
   Object.assign(state, JSON.parse(localStorage.getItem(storageKey) || '{}'));
@@ -21,6 +21,12 @@ function save() {
     byId('history-note').textContent = '이 브라우저에서는 기록을 저장할 수 없습니다.';
   }
 }
+
+if (!/^[A-F0-9]{10}$/.test(state.deviceSessionId)) {
+  const bytes = crypto.getRandomValues(new Uint8Array(5));
+  state.deviceSessionId = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+byId('badge-session').textContent = '이 브라우저의 세션 · ' + state.deviceSessionId;
 
 let current = schedule(Date.now(), state.anchor);
 state.anchor = current.anchor;
@@ -233,6 +239,7 @@ checkIn.addEventListener('submit', event => {
   save();
   closeCheckIn();
   renderBody();
+  renderBadges();
   checkInOpen.focus();
 });
 byId('voice-stop').addEventListener('click', stopVoice);
@@ -326,7 +333,7 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
 }
 
 function renderBadges() {
-  const progress = workoutProgress(state.history);
+  const progress = {...workoutProgress(state.history), bodyCheckIns: state.bodyRecords.length};
   byId('badge-count').textContent = badges.filter(badge => progress[badge.metric] >= badge.target).length + ' / ' + badges.length + ' 획득';
   byId('badges').replaceChildren(...badges.map(badge => {
     const earned = progress[badge.metric] >= badge.target;

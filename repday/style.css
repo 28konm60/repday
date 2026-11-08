@@ -228,6 +228,7 @@ h1 span { color: #527039; }
 #body-history strong { color: #223021; }
 .badge-panel { margin-top: 24px; padding: 30px; background: linear-gradient(120deg, #f3f5ea, #e9eddd); }
 .badge-panel > p { color: #505d47; }
+#badge-session { display: inline-block; margin: 0; background: #f8f9ef; font-variant-numeric: tabular-nums; }
 #badges { gap: 14px; }
 .badge { padding: 25px 10px 20px; background: #f8f9ef; border-color: #c8cfb9; border-radius: 16px; position: relative; overflow: hidden; }
 .badge.earned { background: radial-gradient(ellipse at top, #e2ebcc, #f6f8ed 75%); }
