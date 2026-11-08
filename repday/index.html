@@ -84,6 +84,7 @@
       <label>식단 목표<select name="goal"><option value="balanced">균형 있게 먹기</option><option value="training">운동 후 단백질 챙기기</option><option value="hearty">활동 많은 날 든든하게 먹기</option></select></label>
     </fieldset>
     <button class="meal-submit" type="submit" disabled>내 식단 추천받기 <span aria-hidden="true">↗</span></button>
+    <p class="meal-note">영양값은 표준 재료와 양념을 바탕으로 계산한 추정치이며 제품과 조리법에 따라 달라져요. <a class="meal-credit" href="https://fdc.nal.usda.gov/download-datasets/" target="_blank" rel="noopener noreferrer">USDA 식품 성분 자료</a></p>
     <p class="meal-note">입력값은 저장하거나 전송하지 않아요. 알레르기가 있다면 재료와 제품 표시를 확인해 주세요.</p>
   </form>
   <p id="meal-status" role="status" tabindex="-1"></p>
@@ -100,6 +101,13 @@
       <h3></h3>
       <p class="meal-ingredients"></p>
       <p class="meal-allergens"></p>
+      <div class="meal-nutrition">
+        <h4>영양 정보</h4>
+        <p class="meal-nutrition-basis"></p>
+        <dl class="meal-nutrients"></dl>
+      </div>
+      <h4 class="meal-reason-title">추천 이유</h4>
+      <p class="meal-reason"></p>
       <button class="meal-toggle" type="button" aria-expanded="false">더 맛있게 먹고 싶으면 <span aria-hidden="true"></span></button>
       <div class="meal-recipe" hidden>
         <h4>맛있게 만드는 법</h4>
@@ -109,7 +117,7 @@
     </div>
   </article>
 </template>
-<footer>하루돋움 · 운동과 식단 · 디자인 v13</footer>
+<footer>하루돋움 · 운동과 식단 · 디자인 v14</footer>
 </main>
 <nav class="bottom-nav" aria-label="빠른 이동"><a href="#workout"><span aria-hidden="true">↗</span>운동</a><a href="#records"><span aria-hidden="true">≡</span>기록</a><a href="#body-progress"><span aria-hidden="true">◉</span>몸 상태</a><a href="#awards"><span aria-hidden="true">☆</span>배지</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
 </body>

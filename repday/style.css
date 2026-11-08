@@ -355,6 +355,14 @@ progress::-moz-progress-bar { background: #738e49; }
 .meal-card h3 { margin: 4px 0 8px; font-size: 19px; letter-spacing: -.035em; }
 .meal-meta { display: inline-block; margin: 0; padding: 4px 8px; border-radius: 6px; background: #e0e9cc; color: #34482b; font-size: 12px; font-weight: 700; }
 .meal-ingredients { font-size: 14px; }
+.meal-nutrition { padding: 12px; border-radius: 10px; background: #eef2e4; }
+.meal-nutrition h4, .meal-reason-title { margin: 0; font-size: 13px; }
+.meal-nutrition-basis { font-size: 11px; margin: 3px 0 8px; }
+.meal-nutrients { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 4px; }
+.meal-nutrients dt { font-size: 11px; color: var(--muted); }
+.meal-nutrients dd { margin: 2px 0 0; font-size: 12px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.meal-reason-title { margin-top: 14px; }
+.meal-reason { margin: 4px 0 14px; font-size: 13px; }
 .meal-toggle { width: 100%; background: #e5edcf; font-size: 13px; font-weight: 750; text-align: left; }
 .meal-toggle span { float: right; }
 .meal-toggle span::after { content: '+'; }
