@@ -1,5 +1,8 @@
+import {extraFoodNutrients, extraMeals} from './meal-catalog.mjs';
+
 // USDA SR28, per 100 g: kcal, carbohydrate g, protein g, fat g, fiber g, sodium mg.
 const foodNutrients = {
+  ...extraFoodNutrients,
   yogurt: [73, 3.94, 9.95, 1.92, 0, 34], // NDB 01287
   granola: [489, 53.88, 13.67, 24.31, 8.9, 26], // NDB 08037
   blackberries: [43, 9.61, 1.39, 0.49, 5.3, 1], // NDB 09042
@@ -247,7 +250,8 @@ const meals = [
       '닭가슴살에 간장과 다진 마늘, 후추를 바르고 감자 옆에 놓아요. 남은 기름을 묻힌 브로콜리도 넣어요.',
       '닭의 가장 두꺼운 곳이 74°C에 이를 때까지 구워요. 브로콜리가 먼저 익으면 꺼내 두었다가 곁들여요.'
     ]
-  }
+  },
+  ...extraMeals
 ];
 
 const mealSlots = ['아침', '점심', '저녁'].map(time => meals.filter(meal => meal.time === time));
@@ -266,6 +270,7 @@ function selectMenus(variation) {
 const activityFactors = {low: 1.2, moderate: 1.4, high: 1.6};
 
 const mealStorageKey = 'repday-meal-plan-v1';
+const catalogVersion = 2;
 const mealGoals = ['balanced', 'training', 'hearty'];
 
 function mealPreferences({age, sex, height, weight, activity, goal}) {
@@ -302,14 +307,28 @@ function mealsFor({isYouth, size, goal, variation = 0}) {
   });
 }
 
+function migrateMealVariation(saved) {
+  const {variation} = saved;
+  if (!Number.isInteger(variation) || variation < 0) return 0;
+  if (saved.catalogVersion === catalogVersion) return variation < combinationCount ? variation : 0;
+  if (saved.catalogVersion !== undefined || variation >= 27) return 0;
+
+  // v16 used three choices per slot. Convert its three dish positions to the new catalog.
+  const breakfast = variation % 3;
+  const lunch = (Math.floor(variation / 3) + breakfast) % 3;
+  const dinner = (Math.floor(variation / 9) + breakfast) % 3;
+  const [breakfasts, lunches, dinners] = mealSlots.map(slot => slot.length);
+  const lunchDigit = (lunch - breakfast + lunches) % lunches;
+  const dinnerDigit = (dinner - breakfast + dinners) % dinners;
+  return breakfast + breakfasts * (lunchDigit + lunches * dinnerDigit);
+}
+
 function readSavedMeals() {
   try {
     const saved = JSON.parse(localStorage.getItem(mealStorageKey));
     if (saved && typeof saved.isYouth === 'boolean' &&
         [1, 1.1, 1.25].includes(saved.size) && mealGoals.includes(saved.goal)) {
-      const variation = Number.isInteger(saved.variation) && saved.variation >= 0 && saved.variation < combinationCount
-        ? saved.variation : 0;
-      return {...saved, variation};
+      return {...saved, variation: migrateMealVariation(saved)};
     }
   } catch {
     // A blocked or unreadable store should not prevent recommendations.
@@ -416,7 +435,7 @@ export function initMeals() {
 
   function showAndSaveNext(preferences) {
     const variation = currentPlan ? (currentPlan.variation + 1) % combinationCount : 0;
-    showMeals({...preferences, variation});
+    showMeals({...preferences, variation, catalogVersion});
     try {
       localStorage.setItem(mealStorageKey, JSON.stringify(currentPlan));
     } catch {

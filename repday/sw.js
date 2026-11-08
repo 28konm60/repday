@@ -1,10 +1,16 @@
 const cachePrefix = 'repday-' + self.registration.scope + '-';
-const cacheName = cachePrefix + 'v16';
-const files = ['./', './index.html', './style.css', './app.mjs', './routine.mjs', './meals.mjs',
+const cacheName = cachePrefix + 'v17';
+const files = ['./', './index.html', './style.css', './app.mjs', './routine.mjs', './meals.mjs', './meal-catalog.mjs',
   './manifest.webmanifest', './icon-192.png', './icon-512.png',
   './meal-photos/yogurt.jpg', './meal-photos/chicken.jpg', './meal-photos/salmon.jpg',
   './meal-photos/avocado-toast.jpg', './meal-photos/oatmeal.jpg', './meal-photos/chickpea.jpg',
-  './meal-photos/tofu.jpg', './meal-photos/shrimp-pasta.jpg', './meal-photos/chicken-broccoli.jpg'];
+  './meal-photos/tofu.jpg', './meal-photos/shrimp-pasta.jpg', './meal-photos/chicken-broccoli.jpg',
+  './meal-photos/pancakes.jpg', './meal-photos/omelet.jpg', './meal-photos/apple-oats.jpg',
+  './meal-photos/strawberry-yogurt.jpg', './meal-photos/egg-toast.jpg', './meal-photos/mango-smoothie.jpg',
+  './meal-photos/club-sandwich.jpg', './meal-photos/bean-bowl.jpg', './meal-photos/quinoa-salad.jpg',
+  './meal-photos/mango-wrap.jpg', './meal-photos/lentil-soup.jpg', './meal-photos/beef-broccoli.jpg',
+  './meal-photos/fish-potatoes.jpg', './meal-photos/tofu-noodles.jpg', './meal-photos/chicken-pasta.jpg',
+  './meal-photos/bean-curry.jpg'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(cacheName)
