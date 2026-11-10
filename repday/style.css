@@ -380,3 +380,37 @@ progress::-moz-progress-bar { background: #738e49; }
   .meal-list { grid-template-columns: 1fr; }
   .meal-submit { width: 100%; }
 }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.header-account { border-radius: 100px; font-size: 14px; font-weight: 750; }
+#account-dialog {
+  width: min(440px, calc(100% - 28px));
+  max-height: calc(100% - 28px);
+  padding: 22px;
+  color: inherit;
+  background: #f3f5ea;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+#account-dialog::backdrop { background: #22302188; }
+.account-heading, .account-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.account-heading { justify-content: space-between; }
+.account-heading h2 { font-size: 19px; }
+.account-actions { margin: 12px 0; }
+#account-form { display: grid; gap: 12px; }
+#account-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+#account-form input {
+  min-height: 46px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fcfcf6;
+  color: inherit;
+  font-size: 16px;
+}
+.account-primary { background: #263d25; color: #f5f8e9; font-weight: 750; }
+.account-primary:hover { background: #3a532e; }
+#account-status { font-size: 13px; font-weight: 650; }
+#account-status:empty { display: none; }
+#account-email { overflow-wrap: anywhere; }

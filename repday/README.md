@@ -1,4 +1,4 @@
-# 하루돋움 디자인 v19
+# 하루돋움 디자인 v20
 
 ## 실행
 VS Code에서 이 폴더를 열고 터미널에서 아래 명령을 실행합니다.
@@ -36,3 +36,12 @@ v7에서 처음 전환할 때는 앱을 닫았다 다시 열어야 할 수 있�
 분량은 [Mifflin–St Jeor 추정식](https://pubmed.ncbi.nlm.nih.gov/2305711/)을 참고한 메뉴 예시입니다. 익힘 온도는 [FoodSafety.gov](https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures)를 참고했습니다.
 영양값은 [USDA SR28](https://fdc.nal.usda.gov/download-datasets/)의 식품 100g당 값과 조리 전 재료 및 양념의 무게를 사용해 추정합니다. 성인은 카드에 표시된 분량, 만 6~19세는 공통 기본 레시피가 기준입니다.
 음식 사진은 [Unsplash 라이선스](https://unsplash.com/license)에 따라 사용하며, 각 카드에 촬영자와 원본 링크를 표시합니다.
+
+## 이메일 계정 설정
+1. [Firebase Console](https://console.firebase.google.com/)에서 하루돋움 프로젝트에 웹 앱을 추가합니다.
+2. Authentication의 로그인 제공업체에서 이메일/비밀번호를 사용 설정합니다.
+3. Authentication 설정의 승인된 도메인에 28konm60.github.io를 추가합니다.
+4. 웹 앱의 공개 Firebase 설정 객체를 auth-config.mjs에 넣습니다. 관리자 인증 정보나 서비스 계정 키는 넣지 않습니다.
+5. 배포 후 이메일 인증, 비밀번호 재설정, 서로 다른 두 기기의 로그인과 기기별 로그아웃을 확인합니다.
+
+공개 웹 앱 설정이 없으면 로그인 버튼은 숨겨집니다. 운동 기록, 배지와 식단은 각 브라우저에 따로 저장됩니다.

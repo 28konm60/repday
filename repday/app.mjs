@@ -1,5 +1,6 @@
 import {schedule, planFor, workoutProgress, pendingCheckIn, badges} from './routine.mjs';
 import {initMeals} from './meals.mjs';
+import {initAccount} from './account.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
@@ -300,6 +301,7 @@ renderBadges();
 const pending = renderBody();
 if (pending !== null) openCheckIn(pending, false);
 initMeals();
+initAccount();
 
 if ('serviceWorker' in navigator && window.isSecureContext) {
   const workers = navigator.serviceWorker;
@@ -307,7 +309,7 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
   let updatePending = false;
 
   function applyUpdate() {
-    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden || document.activeElement.closest('#meals')) return;
+    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden || document.activeElement?.closest('#meals') || byId('account-dialog').open) return;
     window.location.reload();
   }
 

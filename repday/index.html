@@ -14,7 +14,7 @@
 <body id="top">
 <a class="skip-link" href="#workout">운동 목록으로 이동</a>
 <main>
-<header><a class="brand" href="#top"><span class="brand-mark">↗</span> 하루돋움<span class="brand-dot">.</span></a><a class="header-meals" href="#meals">식단 <span aria-hidden="true">↗</span></a></header>
+<header><a class="brand" href="#top"><span class="brand-mark">↗</span> 하루돋움<span class="brand-dot">.</span></a><div class="header-actions"><a class="header-meals" href="#meals">식단 <span aria-hidden="true">↗</span></a><button class="header-account" id="account-open" type="button" hidden>로그인</button></div></header>
 <div id="training">
 <section class="hero" aria-labelledby="title">
 <p class="eyebrow">MOVE AT YOUR OWN PACE</p>
@@ -121,7 +121,33 @@
     </div>
   </article>
 </template>
-<footer>하루돋움 · 운동과 식단 · 디자인 v19</footer>
+<dialog id="account-dialog" aria-labelledby="account-title">
+  <div class="account-heading">
+    <h2 id="account-title">이메일로 로그인</h2>
+    <form method="dialog"><button type="submit">닫기</button></form>
+  </div>
+  <p class="settings-note">같은 계정으로 여러 기기에서 로그인할 수 있어요. 운동과 식단 기록은 각 브라우저에 따로 저장돼요.</p>
+  <p id="account-status" role="status"></p>
+  <form id="account-form" method="post" hidden>
+    <label>이메일 <input name="email" type="email" autocomplete="email" inputmode="email" required></label>
+    <label>비밀번호 <input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="account-primary" id="account-submit" data-account-action type="submit">로그인</button>
+  </form>
+  <div class="account-actions" id="account-modes" hidden>
+    <button data-account-action data-mode="signup" type="button">회원가입</button>
+    <button data-account-action data-mode="reset" type="button">비밀번호 재설정</button>
+    <button data-account-action data-mode="login" type="button" hidden>로그인으로 돌아가기</button>
+  </div>
+  <div id="account-session" hidden>
+    <p id="account-email"></p>
+    <div class="account-actions" id="account-verification" hidden>
+      <button id="account-verified" data-account-action type="button">인증 확인</button>
+      <button id="account-resend" data-account-action type="button">인증 메일 다시 보내기</button>
+    </div>
+    <button id="account-signout" data-account-action type="button">이 기기에서 로그아웃</button>
+  </div>
+</dialog>
+<footer>하루돋움 · 운동과 식단 · 디자인 v20</footer>
 </main>
 <nav class="bottom-nav" aria-label="빠른 이동"><a href="#workout"><span aria-hidden="true">↗</span>운동</a><a href="#records"><span aria-hidden="true">≡</span>기록</a><a href="#body-progress"><span aria-hidden="true">◉</span>몸 상태</a><a href="#awards"><span aria-hidden="true">☆</span>배지</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
 </body>
