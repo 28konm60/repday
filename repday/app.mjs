@@ -5,6 +5,7 @@ import {initFootball} from './football.mjs';
 import {initFootballCoach} from './football-coach.mjs';
 import {initFootballVisuals} from './football-visuals.mjs';
 import {initFootballGrowth} from './football-growth.mjs';
+import {initQuests} from './quests.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
@@ -309,14 +310,15 @@ initFootball();
 initFootballVisuals();
 initFootballCoach();
 initFootballGrowth();
+initQuests();
 renderPage();
 window.addEventListener('hashchange', renderPage);
 initAccount();
 
 function renderPage() {
   const hash = window.location.hash;
-  const selected = hash === '#meals' ? 'meals' : ['#workout', '#records', '#body-progress', '#awards'].includes(hash) ? 'training' : 'football';
-  for (const page of ['football', 'training', 'meals']) byId(page).hidden = page !== selected;
+  const selected = hash === '#quests' ? 'quests' : hash === '#meals' ? 'meals' : ['#workout', '#records', '#body-progress', '#awards'].includes(hash) ? 'training' : 'football';
+  for (const page of ['football', 'training', 'meals', 'quests']) byId(page).hidden = page !== selected;
   document.querySelectorAll('.bottom-nav a, .header-actions a').forEach(link => {
     if (link.hash === hash || (!hash && link.hash === '#football')) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');

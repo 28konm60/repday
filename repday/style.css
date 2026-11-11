@@ -530,3 +530,44 @@ progress::-moz-progress-bar { background: #738e49; }
 @media (max-width: 480px) {
   #football-settings .coach-fields, .visual-options { grid-template-columns: 1fr; }
 }
+
+/* Quests and badge collection */
+.quests-page { padding: clamp(20px, 4vw, 38px); }
+.quests-page h1 { font-size: clamp(30px, 5vw, 48px); }
+.quests-page h1 span { color: #527039; }
+.quest-alert { padding: 12px 16px; border: 1px solid #91ad61; border-radius: 12px; background: #dcebbb; color: #294229; font-size: 14px; }
+.quest-home-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; background: #e1ebcb; }
+.quest-home-link p { font-size: 13px; }.quest-home-link strong { font-size: 24px; color: #294229; }
+.quest-overview { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 24px; }
+.quest-overview > div { padding: 18px; border-radius: 12px; background: #e8efdb; }
+.quest-overview > div > span { font-size: 12px; color: #4e6243; }.quest-overview strong { display: block; margin-top: 8px; font-size: 25px; }
+.quest-view-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 20px 0; }
+.quest-view-controls [aria-pressed=true] { background: #203e30; color: #f3f6e9; border-color: #203e30; }
+.quest-view-controls a { font-size: 12px; margin-left: auto; }
+#quest-list { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+.quest-card { padding: 18px 14px; border-radius: 15px; border: 1px solid var(--line); background: #f8f9ef; text-align: center; min-width: 0; }
+.quest-card.cleared { background: #eaf1dc; border-color: #7e9b64; }
+.quest-card h3 { font-size: 14px; line-height: 1.55; margin: 14px 0 8px; }
+.quest-card p { font-size: 12px; }.quest-card progress { margin: 12px 0; height: 5px; }
+.quest-card small { display: block; font-size: 10px; color: #4a6040; line-height: 1.5; }
+.quest-state { color: #31502e; font-weight: 750; }
+.quest-emblem { width: 74px; height: 80px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--quest-color); color: #203e30; box-shadow: inset 0 0 0 4px #ffffff88; border: 3px solid #52694c; }
+.quest-emblem span { font-size: 25px; }.quest-emblem small { font-size: 11px; color: #203e30; font-weight: 800; }
+.quest-card.locked .quest-emblem { filter: grayscale(.8); opacity: .65; }
+.shape-0 { border-radius: 50%; }.shape-1 { border-radius: 16px 16px 35px 35px; }
+.shape-2 { clip-path: polygon(25% 0,75% 0,100% 25%,100% 75%,75% 100%,25% 100%,0 75%,0 25%); }
+.shape-3 { clip-path: polygon(50% 0,95% 20%,85% 75%,50% 100%,15% 75%,5% 20%); }
+.quest-badges .quest-emblem { width: 92px; height: 98px; }.quest-badges .quest-emblem span { font-size: 32px; }
+.quest-pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 22px; }
+#quest-page { font-size: 13px; }.quest-condition { min-height: 38px; }
+@media (max-width:760px) {
+  #quest-list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .quest-card { padding: 16px 10px; }
+  .quest-card h3 { font-size: 13px; }
+  .quest-view-controls a { width: 100%; margin-left: 0; margin-top: 6px; }
+  .quests-page .coach-fields { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .quest-overview strong { font-size: 20px; white-space: nowrap; }
+}

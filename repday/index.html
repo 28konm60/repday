@@ -15,6 +15,7 @@
 <a class="skip-link" href="#football-drills">축구 훈련으로 이동</a>
 <main>
 <header><a class="brand" href="#football"><span class="brand-mark" aria-hidden="true">⚽</span> 볼새김<span class="brand-dot">.</span></a><div class="header-actions"><a class="header-meals" href="#workout">보조 운동</a><a class="header-meals" href="#meals">식단 <span aria-hidden="true">↗</span></a><button class="header-account" id="account-open" type="button" hidden>로그인</button></div></header>
+<p class="quest-alert" id="quest-alert" role="status" hidden></p>
 <section id="football" aria-labelledby="football-title">
   <div class="football-hero">
     <div class="football-hero-copy">
@@ -81,11 +82,23 @@
   <div id="growth-chart"></div><ul id="growth-history"></ul>
   <h3>축구 성장 배지</h3><p class="settings-note">첫 측정 · 5회 측정 · 리프팅 10회 · 패스 10회 이상 시도 중 80% · 슈팅 10회 이상 시도 중 60%를 달성하면 받아요.</p><ul id="growth-badges"></ul>
 </section>
+  <a class="panel quest-home-link" href="#quests"><div><p class="eyebrow">QUEST & REWARDS</p><h2>나의 축구 퀘스트</h2><p>연습으로 조건을 달성하고 300개 보상 배지를 모아 보세요.</p></div><strong id="quest-home-count">0 / 300</strong><span aria-hidden="true">↗</span></a>
   <div class="football-support">
     <a class="panel" href="#workout"><span class="eyebrow">CONDITIONING</span><h3>맨몸 보조 운동</h3><p>축구 훈련을 뒷받침하는 하체·코어 운동과 기존 기록을 확인해요.</p><span aria-hidden="true">↗</span></a>
     <a class="panel" href="#meals"><span class="eyebrow">FUEL YOUR GAME</span><h3>훈련 전후, 잘 먹기</h3><p>내 몸에 맞는 식단과 영양 정보, 맛있게 만드는 조리법을 살펴봐요.</p><span aria-hidden="true">↗</span></a>
   </div>
   <details class="panel football-guidance"><summary>훈련을 시작하기 전에</summary><p>가볍게 걷고 발목과 무릎을 편하게 움직이며 몸을 풀어요. 평평하고 미끄럽지 않은 곳에서 주변 사람과 충분한 거리를 두고 연습해요. 속도와 반복 횟수는 편한 수준에서 시작하고, 통증이 느껴지면 멈춰요.</p><p>훈련 구성은 볼 제어, 주변 확인과 첫 터치의 기본 원리를 참고해 작성했어요. <a class="meal-credit" href="https://www.fifatrainingcentre.com/en/practice/grassroots.php" target="_blank" rel="noopener noreferrer">FIFA Training Centre</a></p></details>
+</section>
+<section class="panel quests-page" id="quests" aria-labelledby="quest-title" hidden>
+  <p class="eyebrow">YOUR NEXT CHALLENGE</p><h1 id="quest-title">한 번의 연습,<br><span>하나의 퀘스트.</span></h1>
+  <p>조건을 달성하면 자동으로 클리어되고 해당 퀘스트의 배지를 받아요. 기존에 쌓은 기록도 반영돼요.</p>
+  <div class="quest-overview"><div><span>클리어한 퀘스트</span><strong><span id="quest-cleared">0</span> / 300</strong></div><div><span>획득한 보상 배지</span><strong><span id="quest-earned">0</span>개</strong></div></div>
+  <progress id="quest-meter" value="0" max="300" aria-label="전체 퀘스트 클리어"></progress>
+  <p class="settings-note">훈련 완료는 같은 동작을 하루 1회씩 집계해요. 클리어한 퀘스트와 받은 배지는 기록을 수정해도 유지돼요. 이 브라우저에 따로 저장됩니다.</p>
+  <div class="quest-view-controls"><button type="button" data-quest-view="quests" aria-pressed="true">퀘스트 목록</button><button type="button" data-quest-view="badges" aria-pressed="false">보상 배지 모음</button><a class="meal-credit" href="#awards">기존 운동 배지 보기</a></div>
+  <div class="coach-fields"><label>훈련 분야<select id="quest-track"><option value="">모든 분야</option></select></label><label>진행 상태<select id="quest-filter"><option value="all">전체</option><option value="active">진행 중</option><option value="cleared">클리어</option></select></label><label>퀘스트 검색<input id="quest-search" type="search" placeholder="예: 리프팅, 패스, 10회"></label></div>
+  <p id="quest-status" role="status"></p><ul id="quest-list"></ul><p id="quest-empty" hidden>이 조건에 해당하는 퀘스트가 없어요.</p>
+  <div class="quest-pagination"><button id="quest-previous" type="button">이전</button><span id="quest-page"></span><button id="quest-next" type="button">다음</button></div>
 </section>
 <div id="training" hidden>
 <section class="hero" aria-labelledby="title">
@@ -237,8 +250,8 @@
     <button id="account-signout" data-account-action type="button">이 기기에서 로그아웃</button>
   </div>
 </dialog>
-<footer>볼새김 · 축구 훈련 · 디자인 v23</footer>
+<footer>볼새김 · 축구 훈련 · 디자인 v24</footer>
 </main>
-<nav class="bottom-nav" aria-label="빠른 이동"><a href="#football"><span aria-hidden="true">⚽</span>축구 홈</a><a href="#football-planner"><span aria-hidden="true">◎</span>맞춤 훈련</a><a href="#football-growth"><span aria-hidden="true">↗</span>성장 기록</a><a href="#awards"><span aria-hidden="true">☆</span>배지</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
+<nav class="bottom-nav" aria-label="빠른 이동"><a href="#football"><span aria-hidden="true">⚽</span>축구 홈</a><a href="#football-planner"><span aria-hidden="true">◎</span>맞춤 훈련</a><a href="#football-growth"><span aria-hidden="true">↗</span>성장 기록</a><a href="#quests"><span aria-hidden="true">☆</span>퀘스트</a><a href="#meals"><span aria-hidden="true">♧</span>식단</a></nav>
 </body>
 </html>

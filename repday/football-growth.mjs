@@ -5,8 +5,8 @@ const dateFormat = new Intl.DateTimeFormat('ko-KR', {month:'numeric',day:'numeri
 const valueOf = record => record.metric === 'juggling' ? record.success : record.success / record.attempts * 100;
 const resultText = record => record.metric === 'juggling' ? record.success + '회' : record.success + ' / ' + record.attempts + '회 · ' + Math.round(valueOf(record)) + '%';
 
-function records() {
-  const saved = readProgress().measurements;
+export function footballMeasurements(progress = readProgress()) {
+  const saved = progress.measurements;
   if (!Array.isArray(saved)) return [];
   return saved.filter(record => record && typeof record.id === 'string' && Object.hasOwn(metricNames,record.metric) &&
     Number.isFinite(record.at) && Number.isInteger(record.success) && record.success >= 0 &&
@@ -82,7 +82,7 @@ export function initFootballGrowth() {
   }
 
   function render() {
-    const all = records();
+    const all = footballMeasurements();
     const selected = all.filter(record => sameConditions(record,conditions())).sort((a,b)=>a.at-b.at);
     document.getElementById('growth-best').textContent = '아직 측정 기록이 없어요.';
     document.getElementById('growth-condition').textContent = metric.value === 'juggling' ? '리프팅 연속 횟수'
@@ -140,10 +140,10 @@ export function initFootballGrowth() {
       success.reportValidity();
       return;
     }
-    const comparable = records().filter(item=>sameConditions(item,record));
+    const comparable = footballMeasurements().filter(item=>sameConditions(item,record));
     const previousBest = comparable.length ? Math.max(...comparable.map(valueOf)) : null;
     const ok = updateFootballProgress(saved=>{
-      saved.measurements = [...records(), record];
+      saved.measurements = [...footballMeasurements(), record];
     });
     if (!ok) {status.textContent='이 브라우저에서는 측정 기록을 저장할 수 없어요.';return;}
     status.textContent = previousBest !== null && valueOf(record)>previousBest ? '개인 최고 기록을 새로 썼어요!' : '측정 기록을 저장했어요.';

@@ -40,12 +40,12 @@ export function readProgress() {
   return {completed: {}};
 }
 
-export function updateFootballProgress(update) {
+export function updateFootballProgress(update, source) {
   const saved = readProgress();
   update(saved);
   try {
     localStorage.setItem(storageKey, JSON.stringify(saved));
-    window.dispatchEvent(new Event('football-progress'));
+    window.dispatchEvent(new CustomEvent('football-progress', {detail:{source}}));
     return true;
   } catch {
     return false;
@@ -124,6 +124,7 @@ export function initFootball() {
         } catch {
           status.textContent = '이 브라우저에서는 훈련 기록을 저장할 수 없어요.';
         }
+        window.dispatchEvent(new CustomEvent('football-progress', {detail:{source:'checkbox'}}));
         const count = drills.filter(item => completed.has(item.id)).length;
         document.getElementById('football-completed').textContent = count;
         document.getElementById('football-meter').value = count;
@@ -146,7 +147,9 @@ export function initFootball() {
     });
     filters.append(button);
   }
-  window.addEventListener('football-progress', render);
+  window.addEventListener('football-progress', event => {
+    if (!['checkbox','quests'].includes(event.detail?.source)) render();
+  });
   window.addEventListener('storage', event => {
     if (event.key === storageKey || event.key === null) render();
   });

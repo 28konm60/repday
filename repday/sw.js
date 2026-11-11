@@ -1,6 +1,6 @@
 const cachePrefix = 'repday-' + self.registration.scope + '-';
-const cacheName = cachePrefix + 'v23';
-const files = ['./', './index.html', './style.css', './app.mjs', './football.mjs', './football-coach.mjs', './football-visuals.mjs', './football-growth.mjs', './routine.mjs', './meals.mjs', './meal-catalog.mjs', './account.mjs', './auth-config.mjs',
+const cacheName = cachePrefix + 'v24';
+const files = ['./', './index.html', './style.css', './app.mjs', './football.mjs', './football-coach.mjs', './football-visuals.mjs', './football-growth.mjs', './quests.mjs', './routine.mjs', './meals.mjs', './meal-catalog.mjs', './account.mjs', './auth-config.mjs',
   './manifest.webmanifest', './icon-192.png', './icon-512.png',
   './meal-photos/yogurt.jpg', './meal-photos/chicken.jpg', './meal-photos/salmon.jpg',
   './meal-photos/avocado-toast.jpg', './meal-photos/oatmeal.jpg', './meal-photos/chickpea.jpg',
