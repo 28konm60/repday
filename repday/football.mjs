@@ -1,4 +1,4 @@
-const drills = [
+export const drills = [
   {id:'sole-taps', category:'control', name:'발바닥 번갈아 터치', dose:'30초 × 2회', equipment:'공 1개 · 제자리', point:'공을 멀리 보내지 않고 가볍게 터치해요.', steps:['한쪽 발바닥을 공 위에 살짝 올려요.','좌우 발을 번갈아 바꾸며 공을 제자리에 두세요.','익숙해지면 고개를 들어 주변을 한 번씩 살펴요.']},
   {id:'inside-touches', category:'control', name:'양발 인사이드 터치', dose:'30초 × 2회', equipment:'공 1개 · 제자리', point:'힘보다 터치의 크기를 일정하게 맞춰요.', steps:['두 발 사이에 공을 놓고 무릎을 편하게 굽혀요.','양발 안쪽으로 공을 짧게 주고받아요.','몸을 편하게 세우고 약한 발에도 같은 힘으로 터치해요.']},
   {id:'sole-roll', category:'control', name:'발바닥 좌우 롤', dose:'좌우 각 8회', equipment:'공 1개 · 2m 공간', point:'발바닥으로 공을 끌어 움직임을 조절해요.', steps:['공 위에 발바닥을 가볍게 얹어요.','공을 몸 앞에서 옆으로 굴리고 반대 발로 받아요.','공이 몸에서 멀어지지 않게 작은 범위부터 시작해요.']},
@@ -13,7 +13,10 @@ const drills = [
   {id:'receive-finish', category:'finish', name:'받고 목표로 보내기', dose:'양발 각 6회', equipment:'공 · 파트너 · 안전한 골대', point:'공을 받기 전 목표와 주변을 살펴요.', steps:['파트너가 가까운 거리에서 낮은 패스를 보내요.','몸을 조금 열어 공을 편한 쪽으로 받아요.','균형을 잡은 뒤 목표를 향해 낮게 마무리해요.']},
   {id:'side-step', category:'movement', name:'사이드 스텝과 멈추기', dose:'15초 × 3회', equipment:'콘 2개 · 평평한 3m 공간', point:'발을 교차하지 않고 균형 있게 멈춰요.', steps:['콘 두 개를 약 3m 간격으로 놓아요.','무릎을 가볍게 굽힌 상태로 옆걸음으로 이동해요.','콘 앞에서는 속도를 줄여 멈추고 충분히 쉰 뒤 반복해요.']},
   {id:'scan-control', category:'movement', name:'주변 보기와 볼 멈추기', dose:'30초 × 2회', equipment:'공 1개 · 제자리', point:'공과 주변을 번갈아 보는 습관을 만들어요.', steps:['공을 발 가까이에서 좌우로 가볍게 움직여요.','짧게 고개를 들어 주변의 표식을 확인해요.','다시 공을 보고 발바닥으로 멈춘 뒤 반복해요.']},
-  {id:'walk-dribble', category:'movement', name:'걷기와 드리블 연결', dose:'편한 속도로 2분', equipment:'공 · 열린 공간', point:'편안한 호흡으로 움직임을 이어가요.', steps:['주변 공간을 확인하고 걷는 속도로 공을 몰아요.','짧은 구간마다 공을 멈추고 방향을 바꿔요.','호흡이 힘들면 공을 들고 천천히 걸으며 쉬어요.']}
+  {id:'walk-dribble', category:'movement', name:'걷기와 드리블 연결', dose:'편한 속도로 2분', equipment:'공 · 열린 공간', point:'편안한 호흡으로 움직임을 이어가요.', steps:['주변 공간을 확인하고 걷는 속도로 공을 몰아요.','짧은 구간마다 공을 멈추고 방향을 바꿔요.','호흡이 힘들면 공을 들고 천천히 걸으며 쉬어요.']},
+  {id:'keeper-set', category:'keeper', name:'골키퍼 준비 자세', dose:'20초 × 3회', equipment:'평평한 2m 공간', point:'발을 어깨너비로 두고 양발에 체중을 고르게 실어요.', steps:['무릎을 편하게 굽히고 상체를 조금 앞으로 기울여요.','손을 몸 앞에 편하게 두고 시선은 공의 높이를 향해요.','작은 옆걸음 후 두 발로 균형 있게 멈춰요.']},
+  {id:'keeper-catch', category:'keeper', name:'가까운 공 받아 안기', dose:'파트너와 10회', equipment:'공 · 파트너', point:'파트너가 가볍게 던진 공을 몸 앞에서 부드럽게 받아요.', steps:['2m 정도 떨어져 마주 서고 던지는 사람과 준비 신호를 맞춰요.','파트너가 가슴 높이로 가볍게 던진 공을 양손으로 받아요.','팔을 조금 굽히며 공을 가슴 가까이 안전하게 안아요.']},
+  {id:'keeper-build', category:'keeper', name:'골키퍼 발밑 패스', dose:'양발 각 8회', equipment:'공 · 벽 또는 파트너', point:'공을 받기 전에 주변을 보고 양발로 짧게 배급해요.', steps:['벽이나 파트너와 3m 정도 거리를 둬요.','공을 받기 전 주변을 보고 한쪽 발로 옆으로 받아요.','반대쪽 발 안쪽으로 낮은 패스를 보내요.']}
 ];
 
 const categories = [
@@ -21,12 +24,13 @@ const categories = [
   ['dribble','드리블','02'],
   ['pass','패스·첫 터치','03'],
   ['finish','슈팅·마무리','04'],
-  ['movement','풋워크','05']
+  ['movement','풋워크','05'],
+  ['keeper','골키퍼','06']
 ];
 const storageKey = 'harudodum-football-v1';
 const dayKey = () => new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
-function readProgress() {
+export function readProgress() {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey));
     if (saved?.completed && typeof saved.completed === 'object' && !Array.isArray(saved.completed)) return saved;
@@ -34,6 +38,27 @@ function readProgress() {
     // Start with an empty view if the saved progress cannot be read.
   }
   return {completed: {}};
+}
+
+export function updateFootballProgress(update) {
+  const saved = readProgress();
+  update(saved);
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(saved));
+    window.dispatchEvent(new Event('football-progress'));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function markFootballComplete(id) {
+  return updateFootballProgress(saved => {
+    const today = dayKey();
+    const completed = new Set(Array.isArray(saved.completed[today]) ? saved.completed[today] : []);
+    completed.add(id);
+    saved.completed[today] = [...completed];
+  });
 }
 
 export function initFootball() {
@@ -71,6 +96,11 @@ export function initFootball() {
       equipment.textContent = drill.equipment;
       const point = document.createElement('p');
       point.textContent = drill.point;
+      const visual = document.createElement('button');
+      visual.type = 'button';
+      visual.className = 'drill-visual-open';
+      visual.textContent = '움직이는 동작 그림';
+      visual.addEventListener('click', () => window.dispatchEvent(new CustomEvent('football-visual', {detail: drill.id})));
       const details = document.createElement('details');
       const summary = document.createElement('summary');
       summary.textContent = '훈련 방법 보기';
@@ -98,7 +128,7 @@ export function initFootball() {
         document.getElementById('football-completed').textContent = count;
         document.getElementById('football-meter').value = count;
       });
-      card.append(meta, label, equipment, point, details);
+      card.append(meta, label, equipment, point, visual, details);
       return card;
     }));
   }
@@ -116,6 +146,7 @@ export function initFootball() {
     });
     filters.append(button);
   }
+  window.addEventListener('football-progress', render);
   window.addEventListener('storage', event => {
     if (event.key === storageKey || event.key === null) render();
   });

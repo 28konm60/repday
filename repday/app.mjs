@@ -2,6 +2,9 @@ import {schedule, planFor, workoutProgress, pendingCheckIn, badges} from './rout
 import {initMeals} from './meals.mjs';
 import {initAccount} from './account.mjs';
 import {initFootball} from './football.mjs';
+import {initFootballCoach} from './football-coach.mjs';
+import {initFootballVisuals} from './football-visuals.mjs';
+import {initFootballGrowth} from './football-growth.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
@@ -303,6 +306,9 @@ const pending = renderBody();
 if (pending !== null && ['#workout', '#records', '#body-progress', '#awards'].includes(location.hash)) openCheckIn(pending, false);
 initMeals();
 initFootball();
+initFootballVisuals();
+initFootballCoach();
+initFootballGrowth();
 renderPage();
 window.addEventListener('hashchange', renderPage);
 initAccount();
@@ -326,7 +332,7 @@ if ('serviceWorker' in navigator && window.isSecureContext) {
   let updatePending = false;
 
   function applyUpdate() {
-    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden || document.activeElement?.closest('#meals') || byId('account-dialog').open) return;
+    if (!updatePending || document.hidden || deadline !== null || narration || !checkIn.hidden || document.activeElement?.closest('#meals') || document.querySelector('dialog[open]') || document.body.dataset.footballRunning === 'true' || document.activeElement?.closest('#football-settings, #growth-form')) return;
     window.location.reload();
   }
 
@@ -374,6 +380,6 @@ function renderBadges() {
   }));
 }
 
-document.querySelector('a[href="#records"]').addEventListener('click', () => {
+document.querySelector('a[href="#records"]')?.addEventListener('click', () => {
   byId('records').open = true;
 });
