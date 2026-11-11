@@ -1,6 +1,7 @@
 import {schedule, planFor, workoutProgress, pendingCheckIn, badges} from './routine.mjs';
 import {initMeals} from './meals.mjs';
 import {initAccount} from './account.mjs';
+import {initFootball} from './football.mjs';
 
 const byId = id => document.getElementById(id);
 const storageKey = 'repday-v1';
@@ -299,9 +300,25 @@ setInterval(refreshSchedule, 15000);
 render();
 renderBadges();
 const pending = renderBody();
-if (pending !== null) openCheckIn(pending, false);
+if (pending !== null && ['#workout', '#records', '#body-progress', '#awards'].includes(location.hash)) openCheckIn(pending, false);
 initMeals();
+initFootball();
+renderPage();
+window.addEventListener('hashchange', renderPage);
 initAccount();
+
+function renderPage() {
+  const hash = window.location.hash;
+  const selected = hash === '#meals' ? 'meals' : ['#workout', '#records', '#body-progress', '#awards'].includes(hash) ? 'training' : 'football';
+  for (const page of ['football', 'training', 'meals']) byId(page).hidden = page !== selected;
+  document.querySelectorAll('.bottom-nav a, .header-actions a').forEach(link => {
+    if (link.hash === hash || (!hash && link.hash === '#football')) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  const target = byId(hash.slice(1));
+  if (target && !target.closest('[hidden]')) target.scrollIntoView();
+  else window.scrollTo(0, 0);
+}
 
 if ('serviceWorker' in navigator && window.isSecureContext) {
   const workers = navigator.serviceWorker;

@@ -414,3 +414,59 @@ progress::-moz-progress-bar { background: #738e49; }
 #account-status { font-size: 13px; font-weight: 650; }
 #account-status:empty { display: none; }
 #account-email { overflow-wrap: anywhere; }
+
+/* Football training home */
+.football-hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; align-items: center; padding: 48px; border-radius: 28px; background: #203e30; color: #f3f6e9; overflow: hidden; }
+.football-hero .eyebrow { color: #d5ed8b; }
+.football-hero h1 { font-size: clamp(36px, 4.6vw, 60px); }
+.football-hero h1 span { color: #d5ed8b; }
+.football-hero-copy > p:not(.eyebrow) { color: #d1dece; margin: 22px 0; font-size: 15px; }
+.football-hero .start-link { background: #d5ed8b; color: #203e30; }
+.football-pitch { position: relative; width: min(100%, 300px); height: 330px; justify-self: center; border: 2px solid #cde1c588; border-radius: 4px; background: repeating-linear-gradient(0deg, #3c6045 0 46px, #34583e 46px 92px); transform: rotate(-7deg); }
+.football-pitch::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid #cde1c588; }
+.pitch-circle { position: absolute; width: 85px; height: 85px; border: 2px solid #cde1c588; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.pitch-box { position: absolute; width: 52%; height: 54px; border: 2px solid #cde1c588; border-top: 0; top: 0; left: 24%; }
+.pitch-box-bottom { top: auto; bottom: 0; transform: rotate(180deg); }
+.pitch-player { position: absolute; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: #d5ed8b; color: #203e30; font-size: 12px; font-weight: 800; box-shadow: 0 7px 12px #10251655; }
+.player-one { left: 20%; bottom: 20%; }.player-two { right: 18%; top: 32%; }.player-three { left: 26%; top: 12%; }
+.pitch-ball { position: absolute; right: 36%; bottom: 36%; color: #fff; font-size: 26px; }
+.football-overview { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px; padding: 32px 0; }
+.football-overview h2 { font-size: 25px; }
+.football-overview p:not(.eyebrow) { margin: 10px 0 0; font-size: 13px; }
+.football-score { min-width: 180px; padding: 18px 22px; border: 1px solid var(--line); border-radius: 16px; background: #f3f5ea; font-size: 12px; }
+.football-score p strong { font-size: 32px; color: #203e30; }.football-score progress { margin: 10px 0 0; }
+#football-filters { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-bottom: 26px; }
+#football-filters button { display: grid; gap: 10px; text-align: left; padding: 16px; font-size: 14px; font-weight: 700; background: #f4f6eb; }
+#football-filters button span { font-size: 11px; font-weight: 500; color: #5e7250; }
+#football-filters [aria-pressed=true] { background: #203e30; color: #f3f6e9; border-color: #203e30; }
+#football-filters [aria-pressed=true] span { color: #d5ed8b; }
+#football-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.football-drill { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: #f8f9ef; }
+.football-drill label { display: flex; gap: 10px; align-items: start; font-size: 18px; font-weight: 750; cursor: pointer; }
+.football-drill input { width: 22px; height: 22px; flex: none; margin: 2px 0 0; accent-color: #527039; }
+.football-drill:has(input:checked) { background: #e5edda; border-color: #7d946a; }
+.football-drill p { font-size: 13px; }.football-drill .football-equipment { font-size: 11px; color: #566b47; }
+.football-drill details { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 6px; }
+.football-drill summary { font-size: 12px; }
+.football-drill ol { margin: 6px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.8; }
+.football-drill li + li { margin-top: 8px; }
+#football-status { min-height: 22px; font-size: 12px; }
+.football-support { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 18px 0 8px; }
+.football-support a { position: relative; padding-right: 50px; }.football-support h3 { margin: 12px 0; }
+.football-support p { font-size: 13px; }.football-support a > span:last-child { position: absolute; right: 22px; top: 20px; font-size: 24px; }
+.bottom-nav a[aria-current] { background: #d5ed8b; color: #203e30; border-radius: 10px; }
+@media (max-width: 760px) {
+  header .brand { font-size: 16px; }
+  .header-actions { gap: 5px; }
+  .header-actions a, .header-actions button { font-size: 11px; padding: 8px 10px; }
+  .football-hero { grid-template-columns: 1fr; gap: 28px; padding: 28px 22px; border-radius: 22px; }
+  .football-hero h1 { font-size: clamp(32px, 8vw, 44px); }
+  .football-pitch { width: 220px; height: 220px; transform: rotate(-5deg); }.pitch-box { height: 38px; }
+  .football-overview { grid-template-columns: 1fr; gap: 14px; padding: 26px 0; }
+  .football-score { display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; align-items: center; }
+  .football-score p { margin: 0 !important; }.football-score progress { grid-column: 1 / -1; }
+  #football-filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  #football-filters button { flex: 0 0 auto; min-width: 100px; padding: 12px; }
+  #football-list, .football-support { grid-template-columns: 1fr; }
+  .football-drill { padding: 20px; }
+}

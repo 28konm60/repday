@@ -356,8 +356,6 @@ function readSavedMeals() {
 }
 
 export function initMeals() {
-  const page = document.getElementById('meals');
-  const home = document.getElementById('training');
   const form = document.getElementById('meal-form');
   const ageInput = form.elements.namedItem('age');
   const adultFields = document.getElementById('meal-adult-fields');
@@ -366,23 +364,6 @@ export function initMeals() {
   const nextMenu = document.getElementById('meal-next');
   let currentPlan = readSavedMeals();
   const template = document.getElementById('meal-card-template');
-  const links = document.querySelectorAll('a[href="#meals"]');
-
-  function showPage() {
-    const showMeals = window.location.hash === '#meals';
-    const pageChanged = home.hidden !== showMeals;
-    home.hidden = showMeals;
-    page.hidden = !showMeals;
-    for (const link of links) {
-      if (showMeals) link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
-    }
-    if (!pageChanged) return;
-    const target = document.getElementById(window.location.hash.slice(1));
-    if (target) target.scrollIntoView();
-    else window.scrollTo(0, 0);
-    if (showMeals) document.getElementById('meal-title').focus({preventScroll: true});
-  }
 
   function renderMeal(meal, index) {
     const card = template.content.cloneNode(true);
@@ -484,6 +465,4 @@ export function initMeals() {
   updateAgeMode();
   if (currentPlan) showMeals(currentPlan, true);
   form.querySelector('button[type=submit]').disabled = false;
-  window.addEventListener('hashchange', showPage);
-  showPage();
 }
