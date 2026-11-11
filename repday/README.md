@@ -1,4 +1,4 @@
-# 하루돋움 디자인 v21
+# 볼새김 디자인 v22
 
 ## 실행
 VS Code에서 이 폴더를 열고 터미널에서 아래 명령을 실행합니다.
@@ -38,7 +38,7 @@ v7에서 처음 전환할 때는 앱을 닫았다 다시 열어야 할 수 있�
 음식 사진은 [Unsplash 라이선스](https://unsplash.com/license)에 따라 사용하며, 각 카드에 촬영자와 원본 링크를 표시합니다.
 
 ## 이메일 계정 설정
-1. [Firebase Console](https://console.firebase.google.com/)에서 하루돋움 프로젝트에 웹 앱을 추가합니다.
+1. [Firebase Console](https://console.firebase.google.com/)에서 볼새김 프로젝트에 웹 앱을 추가합니다.
 2. Authentication의 로그인 제공업체에서 이메일/비밀번호를 사용 설정합니다.
 3. Authentication 설정의 승인된 도메인에 28konm60.github.io를 추가합니다.
 4. 웹 앱의 공개 Firebase 설정 객체를 auth-config.mjs에 넣습니다. 관리자 인증 정보나 서비스 계정 키는 넣지 않습니다.
